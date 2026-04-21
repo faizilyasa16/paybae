@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from '@inertiajs/react';
 
 export default function Navigation() {
     return (
@@ -29,13 +30,13 @@ export default function Navigation() {
 
                 {/* CTA Button */}
                 <div className="flex items-center gap-2">
-                    <a href="#" className="bg-white hover:from-green-700 hover:to-green-500 text-gray-600 font-medium text-sm px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
+                    <Link href="/login" className="bg-white hover:from-green-700 hover:to-green-500 text-gray-600 font-medium text-sm px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
                         Masuk
-                    </a>
+                    </Link>
                     
-                    <a href="#" className="bg-gradient-to-r from-green-600 to-green-400 hover:from-green-700 hover:to-green-500 text-white font-medium text-sm px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
+                    <Link href="/register" className="bg-gradient-to-r from-green-600 to-green-400 hover:from-green-700 hover:to-green-500 text-white font-medium text-sm px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300">
                         Daftar Sekarang
-                    </a>
+                    </Link>
                 </div>
             </nav>
         </div>
