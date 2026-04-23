@@ -1,8 +1,19 @@
 import React from "react";
-import { Link } from '@inertiajs/react';
 import {FcGoogle} from 'react-icons/fc';
-import { Head } from '@inertiajs/react';
+import { Link, Head, useForm } from '@inertiajs/react';
+
 export default function Login() {
+
+    const { data, setData, post, processing, errors } = useForm({
+        email: '',
+        password: '',
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post('/login');
+    };
+
     return (
         <div className="relative min-h-screen font-sans text-gray-900 overflow-hidden flex bg-white">
             <Head title="Login - Paybae" />
@@ -24,14 +35,17 @@ export default function Login() {
                     </div>
 
                     {/* Form elements */}
-                    <form action="#" className="flex flex-col gap-5">
+                    <form onSubmit={submit} className="flex flex-col gap-5">
                         <div>
                             <label className="block text-sm font-semibold text-slate-700 mb-2">Email / Username</label>
                             <input 
-                                type="text" 
+                                type="email" 
                                 placeholder="Masukkan email Anda" 
-                                className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
+                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white ${errors.email ? 'border-red-500' : 'border-slate-200'}`}
+                                value={data.email}
+                                onChange={e => setData('email', e.target.value)}
                             />
+                            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                         </div>
                         
                         <div>
@@ -42,16 +56,20 @@ export default function Login() {
                             <input 
                                 type="password" 
                                 placeholder="••••••••" 
-                                className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
+                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white ${errors.password ? 'border-red-500' : 'border-slate-200'}`}
+                                value={data.password}
+                                onChange={e => setData('password', e.target.value)}
                             />
+                            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
                         </div>
 
                         {/* Submit Button */}
                         <button 
                             type="submit" 
-                            className="mt-4 w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-500/30 hover:scale-[1.01] hover:shadow-green-500/50 transition-all duration-300"
+                            disabled={processing}
+                            className="mt-4 w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-500/30 hover:scale-[1.01] hover:shadow-green-500/50 transition-all duration-300 disabled:opacity-50"
                         >
-                            Masuk
+                            {processing ? 'Memproses...' : 'Masuk'}
                         </button>
                     </form>
 

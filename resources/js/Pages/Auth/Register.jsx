@@ -1,9 +1,20 @@
 import React from "react";
-import { Link } from '@inertiajs/react';
+import { Link, Head, useForm } from '@inertiajs/react';
 import {FcGoogle} from 'react-icons/fc';
-import { Head } from '@inertiajs/react';
 
 export default function Register() {
+    const { data, setData, post, processing, errors } = useForm({
+        email: '',
+        tanggal_lahir: '',
+        password: '',
+        password_confirmation: '',
+    });
+
+    const submit = (e) => {
+        e.preventDefault();
+        post('/register'); 
+    };
+
     return (
         <div className="relative min-h-screen font-sans text-gray-900 flex bg-white">
             <Head title="Login - Paybae" /> 
@@ -25,7 +36,7 @@ export default function Register() {
                     </div>
 
                     {/* Form elements */}
-                    <form action="#" className="flex flex-col gap-4">
+                    <form onSubmit={submit} className="flex flex-col gap-4">
                         
                         {/* Baris 1: Email/Username & Tanggal Lahir */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -33,17 +44,25 @@ export default function Register() {
                                 <label className="block text-sm font-semibold text-slate-700 mb-2">Email / Username</label>
                                 <input 
                                     type="text" 
+                                    name="email"
+                                    value={data.email}
+                                    onChange={(e) => setData('email', e.target.value)}
                                     placeholder="Masukkan email" 
                                     className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
                                 />
+                                {errors.email && <div className="text-red-500 text-xs mt-1">{errors.email}</div>}
                             </div>
                             
                             <div>
                                 <label className="block text-sm font-semibold text-slate-700 mb-2">Tanggal Lahir</label>
                                 <input 
                                     type="date" 
+                                    name="tanggal_lahir"
+                                    value={data.tanggal_lahir}
+                                    onChange={(e) => setData('tanggal_lahir', e.target.value)}
                                     className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white text-slate-700" 
                                 />
+                                {errors.tanggal_lahir && <div className="text-red-500 text-xs mt-1">{errors.tanggal_lahir}</div>}
                             </div>
                         </div>
 
@@ -53,27 +72,36 @@ export default function Register() {
                                 <label className="block text-sm font-semibold text-slate-700 mb-2">Password</label>
                                 <input 
                                     type="password" 
+                                    name="password"
+                                    value={data.password}
+                                    onChange={(e) => setData('password', e.target.value)}
                                     placeholder="••••••••" 
                                     className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
                                 />
+                                {errors.password && <div className="text-red-500 text-xs mt-1">{errors.password}</div>}
                             </div>
 
                             <div>
                                 <label className="block text-sm font-semibold text-slate-700 mb-2">Konfirmasi Password</label>
                                 <input 
                                     type="password" 
+                                    name="password_confirmation"
+                                    value={data.password_confirmation}
+                                    onChange={(e) => setData('password_confirmation', e.target.value)}
                                     placeholder="••••••••" 
                                     className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
                                 />
+                                {errors.password_confirmation && <div className="text-red-500 text-xs mt-1">{errors.password_confirmation}</div>}
                             </div>
                         </div>
 
                         {/* Submit Button */}
                         <button 
                             type="submit" 
-                            className="mt-4 w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-500/30 hover:scale-[1.01] hover:shadow-green-500/50 transition-all duration-300"
+                            disabled={processing}
+                            className={`mt-4 w-full bg-gradient-to-r text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-500/30 transition-all duration-300 ${processing ? 'from-green-400 to-emerald-400 opacity-70 cursor-not-allowed' : 'from-green-600 to-emerald-500 hover:scale-[1.01] hover:shadow-green-500/50'}`}
                         >
-                            Daftar
+                            {processing ? 'Mendaftar...' : 'Daftar'}
                         </button>
                     </form>
 
