@@ -2,6 +2,9 @@ import React from "react";
 import {FcGoogle} from 'react-icons/fc';
 import { Link, Head, useForm } from '@inertiajs/react';
 
+import FormInput from "../Component/FormInput";
+import PrimaryButton from "../Component/PrimaryButton";
+
 export default function Login() {
 
     const { data, setData, post, processing, errors } = useForm({
@@ -36,41 +39,31 @@ export default function Login() {
 
                     {/* Form elements */}
                     <form onSubmit={submit} className="flex flex-col gap-5">
-                        <div>
-                            <label className="block text-sm font-semibold text-slate-700 mb-2">Email / Username</label>
-                            <input 
-                                type="email" 
-                                placeholder="Masukkan email Anda" 
-                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white ${errors.email ? 'border-red-500' : 'border-slate-200'}`}
-                                value={data.email}
-                                onChange={e => setData('email', e.target.value)}
-                            />
-                            {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-                        </div>
+                        <FormInput 
+                            label="Email / Username"
+                            type="email"
+                            placeholder="Masukkan email Anda"
+                            value={data.email}
+                            onChange={e => setData('email', e.target.value)}
+                            error={errors.email}
+                        />
                         
-                        <div>
-                            <div className="flex justify-between items-center mb-2">
-                                <label className="block text-sm font-semibold text-slate-700">Password</label>
-                                <Link href="/forget-password" className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">Lupa password?</Link>
-                            </div>
-                            <input 
-                                type="password" 
-                                placeholder="••••••••" 
-                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white ${errors.password ? 'border-red-500' : 'border-slate-200'}`}
-                                value={data.password}
-                                onChange={e => setData('password', e.target.value)}
-                            />
-                            {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-                        </div>
+                        <FormInput 
+                            label="Password"
+                            type="password"
+                            placeholder="••••••••"
+                            value={data.password}
+                            onChange={e => setData('password', e.target.value)}
+                            error={errors.password}
+                            labelRight={<Link href="/forget-password" className="text-sm text-green-600 hover:text-green-700 font-medium hover:underline">Lupa password?</Link>}
+                        />
 
                         {/* Submit Button */}
-                        <button 
-                            type="submit" 
-                            disabled={processing}
-                            className="mt-4 w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-500/30 hover:scale-[1.01] hover:shadow-green-500/50 transition-all duration-300 disabled:opacity-50"
-                        >
-                            {processing ? 'Memproses...' : 'Masuk'}
-                        </button>
+                        <div className="mt-2">
+                            <PrimaryButton disabled={processing}>
+                                {processing ? 'Memproses...' : 'Masuk'}
+                            </PrimaryButton>
+                        </div>
                     </form>
 
                     {/* Divider 'Atau' */}

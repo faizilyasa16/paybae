@@ -1,6 +1,9 @@
 import React from "react";
 import { Head, Link } from "@inertiajs/react";
 
+import FormInput from "../Component/FormInput";
+import PrimaryButton from "../Component/PrimaryButton";
+
 export default function ForgetPassword() {
     return (
         <div className="relative min-h-screen font-sans text-gray-900 overflow-hidden flex bg-white">
@@ -25,22 +28,18 @@ export default function ForgetPassword() {
 
                     {/* Form elements */}
                     <form action="#" className="flex flex-col gap-5">
-                        <div>
-                            <label className="block text-sm font-semibold text-slate-700 mb-2">Email Akun Paybae</label>
-                            <input 
-                                type="email" 
-                                placeholder="Masukkan email Anda" 
-                                className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
-                            />
-                        </div>
+                        <FormInput 
+                            label="Email Akun Paybae"
+                            type="email"
+                            placeholder="Masukkan email Anda"
+                        />
 
                         {/* Submit Button */}
-                        <button 
-                            type="submit" 
-                            className="mt-4 w-full bg-gradient-to-r from-green-600 to-emerald-500 text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-500/30 hover:scale-[1.01] hover:shadow-green-500/50 transition-all duration-300"
-                        >
-                            Kirim Tautan Reset
-                        </button>
+                        <div className="mt-2">
+                            <PrimaryButton>
+                                Kirim Tautan Reset
+                            </PrimaryButton>
+                        </div>
                     </form>
 
                     {/* Footer Nav Link */}

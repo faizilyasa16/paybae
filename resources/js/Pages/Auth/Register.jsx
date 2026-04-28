@@ -2,8 +2,12 @@ import React from "react";
 import { Link, Head, useForm } from '@inertiajs/react';
 import {FcGoogle} from 'react-icons/fc';
 
+import FormInput from "../Component/FormInput";
+import PrimaryButton from "../Component/PrimaryButton";
+
 export default function Register() {
     const { data, setData, post, processing, errors } = useForm({
+        name: '',
         email: '',
         tanggal_lahir: '',
         password: '',
@@ -38,71 +42,62 @@ export default function Register() {
                     {/* Form elements */}
                     <form onSubmit={submit} className="flex flex-col gap-4">
                         
+                        <FormInput 
+                            label="Nama Lengkap"
+                            type="text"
+                            placeholder="Masukkan nama lengkap Anda"
+                            value={data.name}
+                            onChange={e => setData('name', e.target.value)}
+                            error={errors.name}
+                        />
+
                         {/* Baris 1: Email/Username & Tanggal Lahir */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Email / Username</label>
-                                <input 
-                                    type="text" 
-                                    name="email"
-                                    value={data.email}
-                                    onChange={(e) => setData('email', e.target.value)}
-                                    placeholder="Masukkan email" 
-                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
-                                />
-                                {errors.email && <div className="text-red-500 text-xs mt-1">{errors.email}</div>}
-                            </div>
+                            <FormInput 
+                                label="Email / Username"
+                                type="email"
+                                placeholder="Masukkan email"
+                                value={data.email}
+                                onChange={e => setData('email', e.target.value)}
+                                error={errors.email}
+                            />
                             
-                            <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Tanggal Lahir</label>
-                                <input 
-                                    type="date" 
-                                    name="tanggal_lahir"
-                                    value={data.tanggal_lahir}
-                                    onChange={(e) => setData('tanggal_lahir', e.target.value)}
-                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white text-slate-700" 
-                                />
-                                {errors.tanggal_lahir && <div className="text-red-500 text-xs mt-1">{errors.tanggal_lahir}</div>}
-                            </div>
+                            <FormInput 
+                                label="Tanggal Lahir"
+                                type="date"
+                                value={data.tanggal_lahir}
+                                onChange={e => setData('tanggal_lahir', e.target.value)}
+                                error={errors.tanggal_lahir}
+                            />
                         </div>
 
                         {/* Baris 2: Password & Konfirmasi Password */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
-                            <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Password</label>
-                                <input 
-                                    type="password" 
-                                    name="password"
-                                    value={data.password}
-                                    onChange={(e) => setData('password', e.target.value)}
-                                    placeholder="••••••••" 
-                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
-                                />
-                                {errors.password && <div className="text-red-500 text-xs mt-1">{errors.password}</div>}
-                            </div>
+                            <FormInput 
+                                label="Password"
+                                type="password"
+                                placeholder="••••••••"
+                                value={data.password}
+                                onChange={e => setData('password', e.target.value)}
+                                error={errors.password}
+                            />
 
-                            <div>
-                                <label className="block text-sm font-semibold text-slate-700 mb-2">Konfirmasi Password</label>
-                                <input 
-                                    type="password" 
-                                    name="password_confirmation"
-                                    value={data.password_confirmation}
-                                    onChange={(e) => setData('password_confirmation', e.target.value)}
-                                    placeholder="••••••••" 
-                                    className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all bg-slate-50 focus:bg-white" 
-                                />
-                                {errors.password_confirmation && <div className="text-red-500 text-xs mt-1">{errors.password_confirmation}</div>}
-                            </div>
+                            <FormInput 
+                                label="Konfirmasi Password"
+                                type="password"
+                                placeholder="••••••••"
+                                value={data.password_confirmation}
+                                onChange={e => setData('password_confirmation', e.target.value)}
+                                error={errors.password_confirmation}
+                            />
                         </div>
 
                         {/* Submit Button */}
-                        <button 
-                            type="submit" 
-                            disabled={processing}
-                            className={`mt-4 w-full bg-gradient-to-r text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-green-500/30 transition-all duration-300 ${processing ? 'from-green-400 to-emerald-400 opacity-70 cursor-not-allowed' : 'from-green-600 to-emerald-500 hover:scale-[1.01] hover:shadow-green-500/50'}`}
-                        >
-                            {processing ? 'Mendaftar...' : 'Daftar'}
-                        </button>
+                        <div className="mt-4">
+                            <PrimaryButton disabled={processing}>
+                                {processing ? 'Mendaftar...' : 'Daftar'}
+                            </PrimaryButton>
+                        </div>
                     </form>
 
                     {/* Divider 'Atau' */}

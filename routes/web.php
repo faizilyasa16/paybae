@@ -6,6 +6,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Dashboard\UserController;
 use Inertia\Inertia;
 
+use App\Http\Controllers\OnboardingController;
+use App\Http\Middleware\CheckProfileCompletion;
+
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
@@ -23,5 +26,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('dashboard', UserController::class);
+    Route::get('/onboarding', [OnboardingController::class, 'index'])->name('onboarding.index');
+    Route::post('/onboarding', [OnboardingController::class, 'store'])->name('onboarding.store');
+
+    Route::middleware([CheckProfileCompletion::class])->group(function () {
+        Route::resource('dashboard', UserController::class);
+    });
 });
