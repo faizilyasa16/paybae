@@ -21,6 +21,7 @@ class OnboardingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone' => 'required|string|max:20',
             'nik' => 'required|string|max:20|unique:user_profiles',
             'address' => 'required|string|max:500',
@@ -30,8 +31,14 @@ class OnboardingController extends Controller
         ]);
 
         $user = auth()->user();
+        
+        $profilePicturePath = null;
+        if ($request->hasFile('profile_picture')) {
+            $profilePicturePath = $request->file('profile_picture')->store('profile_pictures', 'public');
+        }
 
         $user->profile()->create([
+            'profile_picture' => $profilePicturePath,
             'phone' => $request->phone,
             'nik' => $request->nik,
             'address' => $request->address,

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Head, useForm } from '@inertiajs/react';
+import { FiCamera } from "react-icons/fi";
 import FormInput from "../Component/FormInput";
 import FormTextArea from "../Component/FormTextArea";
 import PrimaryButton from "../Component/PrimaryButton";
 
 export default function Onboarding() {
+    const fileInputRef = useRef(null);
     const { data, setData, post, processing, errors } = useForm({
+        profile_picture: null,
         phone: '',
         nik: '',
         address: '',
@@ -13,6 +16,12 @@ export default function Onboarding() {
         parent_name: '',
         parent_phone: '',
     });
+
+    const handleImageChange = (e) => {
+        if (e.target.files && e.target.files[0]) {
+            setData('profile_picture', e.target.files[0]);
+        }
+    };
 
     const submit = (e) => {
         e.preventDefault();
@@ -39,6 +48,37 @@ export default function Onboarding() {
 
                     <form onSubmit={submit} className="space-y-6">
                         
+                        {/* Foto Profil */}
+                        <div className="flex flex-col items-center mb-8">
+                            <div 
+                                className="relative w-28 h-28 rounded-full border-4 border-white shadow-lg bg-slate-100 flex items-center justify-center cursor-pointer overflow-hidden group"
+                                onClick={() => fileInputRef.current.click()}
+                            >
+                                {data.profile_picture ? (
+                                    <img 
+                                        src={URL.createObjectURL(data.profile_picture)} 
+                                        alt="Preview" 
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <FiCamera className="w-8 h-8 text-slate-400 group-hover:text-green-500 transition-colors" />
+                                )}
+                                
+                                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <span className="text-white text-xs font-semibold">Ubah Foto</span>
+                                </div>
+                            </div>
+                            <input 
+                                type="file" 
+                                ref={fileInputRef} 
+                                className="hidden" 
+                                accept="image/*"
+                                onChange={handleImageChange}
+                            />
+                            <p className="mt-3 text-sm font-semibold text-slate-600">Foto Profil (Opsional)</p>
+                            {errors.profile_picture && <p className="text-red-500 text-xs mt-1">{errors.profile_picture}</p>}
+                        </div>
+
                         {/* Wajib Diisi */}
                         <div>
                             <h3 className="text-sm font-bold text-green-600 uppercase tracking-wider mb-4 border-b pb-2">Data Pribadi (Wajib)</h3>

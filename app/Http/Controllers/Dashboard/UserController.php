@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -62,5 +63,11 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('/login');
     }
 }

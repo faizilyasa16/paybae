@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('tanggal_lahir');
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('no_rekening');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

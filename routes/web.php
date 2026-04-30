@@ -8,6 +8,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\OnboardingController;
 use App\Http\Middleware\CheckProfileCompletion;
+use App\Http\Controllers\Dashboard\RiwayatTransaksi;
 
 Route::get('/', function () {
     return Inertia::render('Welcome');
@@ -31,5 +32,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware([CheckProfileCompletion::class])->group(function () {
         Route::resource('dashboard', UserController::class);
+        Route::resource('history', RiwayatTransaksi::class);
+        
+        Route::get('/scan', function () {
+            return Inertia::render('User/Scan');
+        })->name('scan.index');
     });
+
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });

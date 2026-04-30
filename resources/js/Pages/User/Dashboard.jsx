@@ -13,26 +13,43 @@ import {
 import { SiShopee } from "react-icons/si";
 import { BsBank } from "react-icons/bs";
 import ShowToggle from "../Component/ShowToggle";
+import { AiFillRobot } from "react-icons/ai";
+import DashboardLayout from "../Component/DashboardLayout";
 
 export default function Dashboard() {
     const { auth } = usePage().props;
     const user = auth?.user || { name: 'Ahmad' };
 
     return (
-        <div className="min-h-screen bg-[#fafaf9] font-sans pb-20 relative overflow-hidden">
+        <div className="relative overflow-hidden min-h-full">
             <Head title="Dashboard - Paybae" />
 
             {/* Background elements to match the soft green theme */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-50 rounded-full blur-[100px] -z-10 -translate-y-1/2 translate-x-1/3"></div>
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-green-50/80 rounded-full blur-[80px] -z-10 translate-y-1/3 -translate-x-1/3"></div>
             
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-10">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6 md:pt-10">
                 {/* Header Section */}
-                <div className="mb-6 animate-fade-in-up">
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 flex items-center gap-2">
-                        Selamat Datang, {user.name} <span className="text-2xl">👋</span>
-                    </h1>
-                    <p className="text-slate-500 mt-1 text-sm sm:text-base font-medium">Kendalikan keuanganmu dengan mudah.</p>
+                <div className="mb-6 animate-fade-in-up flex justify-between items-center">
+                    <div>
+                        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-800 flex items-center gap-2">
+                            Selamat Datang, {user.name} <span className="text-2xl">👋</span>
+                        </h1>
+                        <p className="text-slate-500 mt-1 text-sm sm:text-base font-medium">Kendalikan keuanganmu dengan mudah.</p>
+                    </div>
+                    {user.profile?.profile_picture ? (
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0 hidden md:block">
+                            <img 
+                                src={`/storage/${user.profile.profile_picture}`} 
+                                alt={user.name} 
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+                    ) : (
+                        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-green-100 flex items-center justify-center border-2 border-white shadow-md text-green-600 font-bold text-xl flex-shrink-0 hidden md:flex">
+                            {user.name ? user.name.charAt(0).toUpperCase() : 'A'}
+                        </div>
+                    )}
                 </div>
 
                 {/* Main Card (Saldo) */}
@@ -60,8 +77,8 @@ export default function Dashboard() {
                                     <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight drop-shadow-sm">{ show ? "Rp. 20.500.000" : "Rp. ••••••••" }</h2>
                                 </div>
                                 
-                                <div className="flex items-center gap-2 text-xs sm:text-sm text-green-50 mb-8 font-medium">
-                                    <span>No. 1234 • Paybae</span>
+                                <div className="flex items-center gap-2 text-xs sm:text-sm text-green-50 mb-8 font-medium mt-4">
+                                    <span>{user.no_rekening} • Paybae</span>
                                     <div className="w-4 h-4 bg-green-400 rounded-full flex items-center justify-center shadow-sm">
                                         <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                                     </div>
@@ -92,22 +109,34 @@ export default function Dashboard() {
                         </a>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
-                        <div className="bg-[#f2fbf4] border border-green-100 rounded-[16px] p-4 sm:p-5 transition-transform hover:scale-[1.02]">
-                            <p className="text-sm text-slate-500 font-medium mb-1">Pemasukan</p>
-                            <p className="text-xl sm:text-2xl font-extrabold text-[#52933e]">+Rp7.500.000</p>
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div className="bg-[#f2fbf4] border border-green-100 rounded-[16px] p-3.5 sm:p-5 transition-transform hover:scale-[1.02] overflow-hidden">
+                            <p className="text-xs sm:text-sm text-slate-500 font-medium mb-1">Pemasukan</p>
+                            <p className="text-base sm:text-xl md:text-2xl font-extrabold text-[#52933e] whitespace-nowrap tracking-tight truncate">+Rp7.500.000</p>
                         </div>
-                        <div className="bg-[#fff8f6] border border-orange-50 rounded-[16px] p-4 sm:p-5 transition-transform hover:scale-[1.02]">
-                            <p className="text-sm text-slate-500 font-medium mb-1">Pengeluaran</p>
-                            <p className="text-xl sm:text-2xl font-extrabold text-[#d85c49]">-Rp3.200.000</p>
+                        <div className="bg-[#fff8f6] border border-orange-50 rounded-[16px] p-3.5 sm:p-5 transition-transform hover:scale-[1.02] overflow-hidden">
+                            <p className="text-xs sm:text-sm text-slate-500 font-medium mb-1">Pengeluaran</p>
+                            <p className="text-base sm:text-xl md:text-2xl font-extrabold text-[#d85c49] whitespace-nowrap tracking-tight truncate">-Rp3.200.000</p>
                         </div>
                     </div>
                 </div>
-
+                <div className="bg-white rounded-[20px] p-5 sm:p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 mb-6">
+                        <div className="flex justify-between items-center mb-5">
+                            <h3 className="font-bold text-slate-800 text-lg flex items-center gap-2"><AiFillRobot className="w-4 h-4 text-[#52933e]" /> Rekomendasi AI</h3>
+                            <a href="#" className="text-sm font-bold text-[#61a94a] hover:text-[#4e8d3b] flex items-center gap-1 transition-colors">
+                                Lihat Insight <FiArrowRight className="w-4 h-4" />
+                            </a>
+                        </div>
+                        <div className="grid grid-cols-1 gap-4">
+                            <div className="bg-[#f2fbf4] border border-green-100 rounded-[16px] p-4 sm:p-5 transition-transform hover:scale-[1.02]">
+                                <p className="text-xl sm:text-2xl font-extrabold text-[#52933e]">Kamu harus berhemat <span className="text-red-500">Rp. 1.500.000</span> pada minggu ini</p>
+                            </div>
+                        </div>
+                </div>
                 {/* Bottom Section: Transaksi & Analisis */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
                     {/* Transaksi Terbaru */}
-                    <div className="lg:col-span-2 bg-white rounded-[20px] p-5 sm:p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60">
+                    <div className="lg:col-span-2 bg-white rounded-[20px] p-5 sm:p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 order-2 lg:order-1">
                         <div className="flex justify-between items-center mb-5">
                             <h3 className="font-bold text-slate-800 text-lg">Transaksi</h3>
                             <a href="#" className="text-sm font-bold text-[#61a94a] hover:text-[#4e8d3b] flex items-center gap-1 transition-colors">
@@ -172,11 +201,11 @@ export default function Dashboard() {
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-slate-800 text-base flex items-center gap-2">Makan & Minum</h4>
-                                        <p className="text-xs text-slate-500 font-medium">Rp3.350.000</p>
+                                        <p className="text-xs text-slate-500 font-medium">KFC</p>
                                     </div>
                                 </div>
                                 <div className="text-right">
-                                    <p className="font-bold text-slate-800">Rp3.350.000</p>
+                                    <p className="font-bold text-slate-800">Rp150.000</p>
                                 </div>
                             </div>
                             
@@ -197,9 +226,8 @@ export default function Dashboard() {
                             </div>
                         </div>
                     </div>
-
                     {/* Analisis Pengeluaran */}
-                    <div className="bg-white rounded-[20px] p-5 sm:p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 flex flex-col relative overflow-hidden">
+                    <div className="bg-white rounded-[20px] p-5 sm:p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 flex flex-col relative overflow-hidden order-1 lg:order-2">
                         {/* Decorative background for the card */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#f2fbf4] rounded-full blur-3xl -z-10 opacity-70"></div>
                         
@@ -249,3 +277,5 @@ export default function Dashboard() {
         </div>
     );
 }
+
+Dashboard.layout = page => <DashboardLayout children={page} />;

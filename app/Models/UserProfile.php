@@ -17,6 +17,7 @@ class UserProfile extends Model
         'occupation',
         'parent_name',
         'parent_phone',
+        'profile_picture',
     ];
 
     public function user()
