@@ -1,7 +1,11 @@
 import React from "react";
 import {FaPlay, FaShieldAlt, FaLock, FaCheckCircle} from "react-icons/fa";
+import Navbar from "../Component/Navigation";
 export default function Home() {
     return (
+    
+        <>
+        <Navbar />
         <main className="flex flex-col lg:flex-row items-center justify-between min-h-screen px-6 lg:px-20 pt-32 pb-20 z-10 relative max-w-7xl mx-auto w-full gap-12">
             
             {/* LEFT COLUMN: Text Content */}
@@ -75,5 +79,6 @@ export default function Home() {
             </div>
             
         </main>
+        </>
     );
 }

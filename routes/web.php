@@ -11,7 +11,7 @@ use App\Http\Middleware\CheckProfileCompletion;
 use App\Http\Controllers\Dashboard\RiwayatTransaksi;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('Home/Home');
 })->name('home');
 
 Route::middleware('guest')->group(function () {

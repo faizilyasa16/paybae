@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/react";
 import { FiSearch, FiZap, FiCoffee, FiArrowDownLeft, FiArrowUpRight } from "react-icons/fi";
 import { SiShopee } from "react-icons/si";
 import { BsBank } from "react-icons/bs";
+import TransactionItem from "../Component/TransactionItem";
 
 // Data dummy untuk contoh transaksi
 const allTransactions = [
@@ -26,10 +27,7 @@ export default function Riwayat() {
         return matchSearch && matchFilter;
     });
 
-    // Format mata uang Rupiah
-    const formatRupiah = (angka) => {
-        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
-    };
+    // Format mata uang Rupiah (sudah ada di dalam komponen TransactionItem)
 
     return (
         <div className="pt-6 md:pt-10 max-w-4xl mx-auto px-4 sm:px-6 pb-20">
@@ -81,26 +79,18 @@ export default function Riwayat() {
                 <div className="flex flex-col gap-3">
                     {filteredTransactions.length > 0 ? (
                         filteredTransactions.map((trx) => (
-                            <div key={trx.id} className="flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-50 transition-colors border border-slate-100/50 group">
-                                <div className="flex items-center gap-4">
-                                    <div className={`w-12 h-12 rounded-[14px] ${trx.bg} ${trx.color} flex items-center justify-center text-xl shadow-sm border ${trx.border} group-hover:scale-105 transition-transform flex-shrink-0`}>
-                                        <trx.icon />
-                                    </div>
-                                    <div>
-                                        <h4 className="font-bold text-slate-800 text-base">{trx.title}</h4>
-                                        <div className="flex flex-wrap items-center gap-1.5 text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5">
-                                            <span className="truncate max-w-[90px] sm:max-w-none">{trx.desc}</span>
-                                            <span className="text-slate-300 font-bold flex-shrink-0">&bull;</span>
-                                            <span className="whitespace-nowrap">{trx.date}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="text-right flex-shrink-0">
-                                    <p className={`font-bold ${trx.amount > 0 ? 'text-[#52933e]' : 'text-slate-800'}`}>
-                                        {trx.amount > 0 ? '+' : ''}{formatRupiah(trx.amount).replace(',00', '')}
-                                    </p>
-                                </div>
-                            </div>
+                            <TransactionItem 
+                                key={trx.id}
+                                icon={trx.icon}
+                                title={trx.title}
+                                desc={trx.desc}
+                                date={trx.date}
+                                amount={trx.amount}
+                                type={trx.type}
+                                color={trx.color}
+                                bg={trx.bg}
+                                border={trx.border}
+                            />
                         ))
                     ) : (
                         <div className="flex flex-col items-center justify-center py-16 text-center">
