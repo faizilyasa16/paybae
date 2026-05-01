@@ -14,6 +14,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
         ]);
+        $middleware->alias([
+            'pin.verified' => \App\Http\Middleware\CheckPinVerified::class,
+        ]);
         $middleware->redirectTo(
             guests: '/login',
             users: '/dashboard'

@@ -6,7 +6,7 @@ import { BiScan } from 'react-icons/bi';
 
 export default function DashboardLayout({ children }) {
     const { url, props } = usePage();
-    const user = props.auth?.user || { name: 'Ahmad' };
+    const user = props.auth?.user || { name: 'User' };
 
     // Menu untuk Bottom Navbar (Mobile)
     const bottomNavItems = [
@@ -14,7 +14,7 @@ export default function DashboardLayout({ children }) {
         { name: 'Riwayat', href: '/history', icon: FiClock },
         { name: 'Scan', href: '/scan', icon: BiScan, isPrimary: true },
         { name: 'Insight', href: '/insight', icon: FiPieChart },
-        { name: 'Profil', href: '/profile', icon: FiUser },
+        { name: user.name, href: '/profile', icon: FiUser },
     ];
 
     // Menu untuk Sidebar (Desktop)
@@ -23,7 +23,6 @@ export default function DashboardLayout({ children }) {
         { name: 'Riwayat Transaksi', href: '/history', icon: FiClock },
         { name: 'Transfer & Bayar', href: '/scan', icon: BiScan },
         { name: 'Insight Akun', href: '/insight', icon: FiPieChart },
-        { name: 'Pengaturan', href: '/settings', icon: FiSettings },
         { name: 'Profil Saya', href: '/profile', icon: FiUser },
     ];
 
@@ -89,7 +88,7 @@ export default function DashboardLayout({ children }) {
 
                     return (
                         <Link key={item.name} href={item.href} className="flex flex-col items-center justify-center p-2 min-w-[64px]">
-                            {item.name === 'Profil' ? (
+                            {item.href === '/profile' ? (
                                 <div className={`p-[2px] rounded-full transition-all ${isActive ? 'bg-[#52933e]' : 'bg-transparent'}`}>
                                     {user.profile?.profile_picture ? (
                                         <div className="w-7 h-7 rounded-full overflow-hidden border border-white bg-white flex-shrink-0">

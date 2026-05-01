@@ -17,9 +17,21 @@ class CheckProfileCompletion
     {
         $user = auth()->user();
 
-        // If user is logged in, doesn't have a profile, and isn't currently on the onboarding route
-        if ($user && !$user->profile && !$request->routeIs('onboarding*')) {
-            return redirect()->route('onboarding.index');
+        if ($user) {
+            // Check Profile
+            if (!$user->profile && !$request->routeIs('onboarding*')) {
+                return redirect()->route('onboarding.index');
+            }
+
+            // Check PIN setup
+            if ($user->profile && !$user->pin && !$request->routeIs('pin*') && !$request->routeIs('onboarding*') && !$request->routeIs('logout')) {
+                return redirect()->route('pin.setup');
+            }
+
+            // Check PIN verification (for login session)
+            if ($user->profile && $user->pin && !session('pin_verified') && !$request->routeIs('pin*') && !$request->routeIs('onboarding*') && !$request->routeIs('logout')) {
+                return redirect()->route('pin.verify');
+            }
         }
 
         return $next($request);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Head, usePage } from "@inertiajs/react";
 import { 
     FiSend, 
@@ -8,7 +8,9 @@ import {
     FiEye,
     FiEyeOff,
     FiCoffee,
-    FiZap
+    FiZap,
+    FiCopy,
+    FiCheck
 } from "react-icons/fi";
 import { SiShopee } from "react-icons/si";
 import { BsBank } from "react-icons/bs";
@@ -19,6 +21,15 @@ import DashboardLayout from "../Component/DashboardLayout";
 export default function Dashboard() {
     const { auth } = usePage().props;
     const user = auth?.user || { name: 'Ahmad' };
+    const [copied, setCopied] = useState(false);
+
+    const copyRekening = () => {
+        const noRek = user.no_rekening || '';
+        navigator.clipboard.writeText(noRek).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
 
     return (
         <div className="relative overflow-hidden min-h-full">
@@ -78,10 +89,23 @@ export default function Dashboard() {
                                 </div>
                                 
                                 <div className="flex items-center gap-2 text-xs sm:text-sm text-green-50 mb-8 font-medium mt-4">
-                                    <span>{user.no_rekening} • Paybae</span>
-                                    <div className="w-4 h-4 bg-green-400 rounded-full flex items-center justify-center shadow-sm">
-                                        <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
-                                    </div>
+                                    <button
+                                        onClick={copyRekening}
+                                        className="flex items-center gap-2 group cursor-pointer select-all active:scale-95 transition-transform"
+                                        title="Klik untuk menyalin nomor rekening"
+                                    >
+                                        <span className="tracking-wider">{user.no_rekening} • Paybae</span>
+                                        <span className={`flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full transition-all duration-300 ${
+                                            copied
+                                                ? 'bg-white/30 text-white'
+                                                : 'bg-white/10 text-white/70 group-hover:bg-white/20 group-hover:text-white'
+                                        }`}>
+                                            {copied
+                                                ? <><FiCheck className="w-3 h-3" /> Tersalin!</>
+                                                : <><FiCopy className="w-3 h-3" /> Salin</>
+                                            }
+                                        </span>
+                                    </button>
                                 </div>
                         
                         <div className="flex gap-3 sm:gap-4">
@@ -119,20 +143,93 @@ export default function Dashboard() {
                             <p className="text-base sm:text-xl md:text-2xl font-extrabold text-[#d85c49] whitespace-nowrap tracking-tight truncate">-Rp3.200.000</p>
                         </div>
                     </div>
-                </div>
-                <div className="bg-white rounded-[20px] p-5 sm:p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 mb-6">
-                        <div className="flex justify-between items-center mb-5">
-                            <h3 className="font-bold text-slate-800 text-lg flex items-center gap-2"><AiFillRobot className="w-4 h-4 text-[#52933e]" /> Rekomendasi AI</h3>
-                            <a href="#" className="text-sm font-bold text-[#61a94a] hover:text-[#4e8d3b] flex items-center gap-1 transition-colors">
-                                Lihat Insight <FiArrowRight className="w-4 h-4" />
-                            </a>
-                        </div>
-                        <div className="grid grid-cols-1 gap-4">
-                            <div className="bg-[#f2fbf4] border border-green-100 rounded-[16px] p-4 sm:p-5 transition-transform hover:scale-[1.02]">
-                                <p className="text-xl sm:text-2xl font-extrabold text-[#52933e]">Kamu harus berhemat <span className="text-red-500">Rp. 1.500.000</span> pada minggu ini</p>
+                {/* AI Prediksi & Rekomendasi */}
+                <div className="my-6 animate-fade-in-up" style={{ animationDelay: '250ms' }}>
+                    {/* Card Header - Dark premium */}
+                    <div className="relative bg-gradient-to-br from-slate-800 via-slate-800 to-slate-900 rounded-t-[20px] px-5 py-4 overflow-hidden">
+                        {/* Subtle glow blobs */}
+                        <div className="absolute -top-6 -right-6 w-28 h-28 bg-[#61a94a]/20 rounded-full blur-2xl"></div>
+                        <div className="absolute -bottom-4 left-10 w-20 h-20 bg-violet-500/10 rounded-full blur-2xl"></div>
+
+                        <div className="relative flex items-center gap-3">
+                            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#61a94a] to-[#4e8d3b] flex items-center justify-center shadow-lg shadow-green-900/30">
+                                <AiFillRobot className="w-5 h-5 text-white" />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-white text-sm leading-tight">AI Prediksi & Rekomendasi</h3>
+                                <p className="text-slate-400 text-xs mt-0.5">Berdasarkan pola transaksimu bulan ini</p>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Cards Container */}
+                    <div className="bg-white rounded-b-[20px] border border-t-0 border-slate-100 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)] overflow-hidden divide-y divide-slate-50">
+
+                        {/* Item 1 — Prediksi Pengeluaran */}
+                        <div className="flex items-start gap-4 px-5 py-4 hover:bg-slate-50/70 transition-colors">
+                            <div className="w-10 h-10 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-5 h-5 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                                </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-xs font-semibold text-orange-400 uppercase tracking-wide mb-1">Prediksi Bulan Depan</p>
+                                <p className="text-slate-800 font-bold text-base leading-tight">Rp 3.654.000</p>
+                                <div className="flex items-center gap-1.5 mt-1">
+                                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-orange-500 bg-orange-50 px-2 py-0.5 rounded-full border border-orange-100">
+                                        ↑ +14%
+                                    </span>
+                                    <span className="text-xs text-slate-400">dari pengeluaran bulan ini</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Item 2 — Rekomendasi Hemat */}
+                        <div className="flex items-start gap-4 px-5 py-4 hover:bg-slate-50/70 transition-colors">
+                            <div className="w-10 h-10 rounded-2xl bg-[#f2fbf4] border border-green-100 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-5 h-5 text-[#52933e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                                </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-xs font-semibold text-[#52933e] uppercase tracking-wide mb-1">Rekomendasi Hemat</p>
+                                <p className="text-slate-700 text-sm leading-relaxed">
+                                    Pola belanja online naik <span className="font-bold text-slate-800">20%</span>. Kurangi 1x pesan antar/minggu
+                                </p>
+                                <div className="mt-2 flex items-center gap-2 bg-[#f2fbf4] px-3 py-1.5 rounded-lg border border-green-100 w-fit">
+                                    <svg className="w-3.5 h-3.5 text-[#52933e]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                    <span className="text-xs font-bold text-[#52933e]">Hemat ~Rp 180.000/bulan</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Item 3 — Prediksi Tabungan */}
+                        <div className="flex items-start gap-4 px-5 py-4 hover:bg-slate-50/70 transition-colors">
+                            <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center flex-shrink-0">
+                                <svg className="w-5 h-5 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                                </svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <p className="text-xs font-semibold text-blue-400 uppercase tracking-wide mb-1">Prediksi Tabungan</p>
+                                <p className="text-slate-700 text-sm leading-relaxed">
+                                    Jika disiplin hemat, tabunganmu bisa naik dalam <span className="font-bold text-slate-800">3 bulan</span> ke depan
+                                </p>
+                                <div className="mt-2 flex items-center gap-2">
+                                    <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                                        <div className="h-full w-[23%] bg-gradient-to-r from-blue-400 to-blue-500 rounded-full"></div>
+                                    </div>
+                                    <span className="text-xs font-bold text-blue-500">+23%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+                </div>
+
                 {/* Bottom Section: Transaksi & Analisis */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 animate-fade-in-up" style={{ animationDelay: '300ms' }}>
                     {/* Transaksi Terbaru */}

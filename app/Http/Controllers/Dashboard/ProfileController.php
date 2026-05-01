@@ -5,16 +5,15 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('User/Dashboard');
+        return Inertia::render('User/Profile');
     }
 
     /**
@@ -63,15 +62,5 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        
-        return redirect('/login');
     }
 }

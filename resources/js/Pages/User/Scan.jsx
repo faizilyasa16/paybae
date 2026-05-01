@@ -7,8 +7,10 @@ import QRModal from '../Component/QRModal';
 export default function Scan() {
     const videoRef = useRef(null);
     const fileInputRef = useRef(null);
+    const videoTrackRef = useRef(null);
     const [hasCameraError, setHasCameraError] = useState(false);
     const [showQRModal, setShowQRModal] = useState(false);
+    const [isFlashOn, setIsFlashOn] = useState(false);
 
     useEffect(() => {
         let stream = null;
@@ -20,6 +22,10 @@ export default function Scan() {
                 stream = await navigator.mediaDevices.getUserMedia({
                     video: { facingMode: 'environment' }
                 });
+                
+                // Simpan track video untuk kontrol flash
+                const track = stream.getVideoTracks()[0];
+                videoTrackRef.current = track;
                 
                 // Sambungkan stream ke elemen video
                 if (videoRef.current) {
@@ -47,6 +53,28 @@ export default function Scan() {
         if (file) {
             // Placeholder aksi ketika gambar dipilih
             alert(`Gambar "${file.name}" berhasil dipilih dari galeri! Sistem akan mendeteksi QR di gambar ini.`);
+        }
+    };
+
+    // Fungsi toggle senter (flash)
+    const toggleFlash = async () => {
+        const track = videoTrackRef.current;
+        if (track) {
+            try {
+                // Periksa apakah perangkat memiliki dukungan senter
+                const capabilities = track.getCapabilities();
+                if (capabilities.torch) {
+                    const newFlashState = !isFlashOn;
+                    await track.applyConstraints({
+                        advanced: [{ torch: newFlashState }]
+                    });
+                    setIsFlashOn(newFlashState);
+                } else {
+                    alert("Flash/Senter tidak didukung pada kamera perangkat ini.");
+                }
+            } catch (err) {
+                console.error("Gagal mengubah status flash:", err);
+            }
         }
     };
 
@@ -140,9 +168,12 @@ export default function Scan() {
             {/* Bottom Controls */}
             <div className="relative z-20 p-8 pb-12 flex items-center justify-between max-w-md w-full mx-auto">
                 {/* Tombol Flash */}
-                <button className="flex flex-col items-center gap-2 text-white hover:text-green-400 transition-colors group">
-                    <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center backdrop-blur-md border border-white/10 group-hover:bg-white/20 transition-all">
-                        <FiZap className="w-5 h-5" />
+                <button 
+                    onClick={toggleFlash}
+                    className={`flex flex-col items-center gap-2 transition-colors group ${isFlashOn ? 'text-yellow-400' : 'text-white hover:text-green-400'}`}
+                >
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-md border transition-all ${isFlashOn ? 'bg-yellow-400/20 border-yellow-400/50 shadow-[0_0_15px_rgba(250,204,21,0.4)]' : 'bg-white/10 border-white/10 group-hover:bg-white/20'}`}>
+                        <FiZap className={`w-5 h-5 ${isFlashOn ? 'fill-yellow-400' : ''}`} />
                     </div>
                     <span className="text-xs font-medium">Flash</span>
                 </button>

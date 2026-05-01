@@ -47,6 +47,6 @@ class OnboardingController extends Controller
             'parent_phone' => $request->parent_phone,
         ]);
 
-        return redirect()->route('dashboard.index');
+        return redirect()->route('pin.setup');
     }
 }
