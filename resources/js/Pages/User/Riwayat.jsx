@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DashboardLayout from "../Component/DashboardLayout";
+<<<<<<< HEAD
 import { Head, usePage } from "@inertiajs/react";
 import { FiSearch, FiArrowDownLeft } from "react-icons/fi";
 import { BsBank } from "react-icons/bs";
@@ -39,6 +40,28 @@ export default function Riwayat() {
         };
     });
 
+=======
+import { Head } from "@inertiajs/react";
+import { FiSearch, FiZap, FiCoffee, FiArrowDownLeft, FiArrowUpRight } from "react-icons/fi";
+import { SiShopee } from "react-icons/si";
+import { BsBank } from "react-icons/bs";
+import TransactionItem from "../Component/TransactionItem";
+
+// Data dummy untuk contoh transaksi
+const allTransactions = [
+    { id: 1, title: 'Shopee', desc: 'Belanja Online', amount: -840000, type: 'Pengeluaran', date: 'Hari Ini, 14:30', icon: SiShopee, color: 'text-[#f08a38]', bg: 'bg-[#fff5eb]', border: 'border-orange-100/50' },
+    { id: 2, title: 'Transfer Bank', desc: 'Bambang Indra', amount: 2500000, type: 'Pemasukan', date: 'Kemarin, 09:15', icon: BsBank, color: 'text-[#52933e]', bg: 'bg-[#f2fbf4]', border: 'border-green-100/50' },
+    { id: 3, title: 'PLN', desc: 'Bayar Listrik', amount: -540000, type: 'Pengeluaran', date: '28 Apr 2024', icon: FiZap, color: 'text-[#eab308]', bg: 'bg-[#fffaf0]', border: 'border-yellow-100/50' },
+    { id: 4, title: 'Makan & Minum', desc: 'KFC', amount: -150000, type: 'Pengeluaran', date: '27 Apr 2024', icon: FiCoffee, color: 'text-[#52933e]', bg: 'bg-[#f2fbf4]', border: 'border-green-100/50' },
+    { id: 5, title: 'Transfer Masuk', desc: 'Gaji Bulanan', amount: 8500000, type: 'Pemasukan', date: '25 Apr 2024', icon: FiArrowDownLeft, color: 'text-[#52933e]', bg: 'bg-[#f2fbf4]', border: 'border-green-100/50' },
+    { id: 6, title: 'Transfer Keluar', desc: 'Haskai', amount: -540000, type: 'Pengeluaran', date: '23 Apr 2024', icon: FiArrowUpRight, color: 'text-[#d85c49]', bg: 'bg-[#fff8f6]', border: 'border-red-100/50' },
+];
+
+export default function Riwayat() {
+    const [search, setSearch] = useState('');
+    const [filter, setFilter] = useState('Semua'); // Pilihan: Semua, Pemasukan, Pengeluaran
+
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     // Filter akan langsung bereaksi secara otomatis setiap kali variabel search atau filter berubah
     const filteredTransactions = allTransactions.filter(trx => {
         const matchSearch = trx.title.toLowerCase().includes(search.toLowerCase()) || trx.desc.toLowerCase().includes(search.toLowerCase());

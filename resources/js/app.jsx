@@ -9,7 +9,11 @@ if (document.getElementById('app')) {
       return pages[`./Pages/${name}.jsx`]
     },
     setup({ el, App, props }) {
+<<<<<<< HEAD
       createRoot(el).render(<App {...props} />);
+=======
+      createRoot(el).render(<App {...props} />)
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     },
   })
 }

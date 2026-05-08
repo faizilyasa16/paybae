@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "8e3196e8b8f8e58f835d66d4d3d6c5ec",
+=======
+    "content-hash": "2127b7de71917d99565db311be8546e2",
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     "packages": [
         {
             "name": "brick/math",
@@ -6081,6 +6085,7 @@
                 }
             ],
             "time": "2024-11-21T01:49:47+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "xendit/xendit-php",
@@ -6141,6 +6146,8 @@
                 "source": "https://github.com/xendit/xendit-php/tree/6.0.0"
             },
             "time": "2024-08-15T06:16:23+00:00"
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
         }
     ],
     "packages-dev": [
@@ -8521,12 +8528,20 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
+<<<<<<< HEAD
     "stability-flags": [],
+=======
+    "stability-flags": {},
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
+<<<<<<< HEAD
     "platform-dev": [],
+=======
+    "platform-dev": {},
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     "plugin-api-version": "2.6.0"
 }

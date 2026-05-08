@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
 import React from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { FiHome, FiClock, FiUser, FiSettings, FiGrid, FiCreditCard, FiLogOut, FiPieChart } from 'react-icons/fi';
@@ -20,7 +24,11 @@ export default function DashboardLayout({ children }) {
     const sidebarItems = [
         { name: 'Dashboard', href: '/dashboard', icon: FiGrid },
         { name: 'Riwayat Transaksi', href: '/history', icon: FiClock },
+<<<<<<< HEAD
         { name: 'Transfer & Bayar', href: '/transfer', icon: BiScan },
+=======
+        { name: 'Transfer & Bayar', href: '/scan', icon: BiScan },
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
         { name: 'Insight Akun', href: '/insight', icon: FiPieChart },
         { name: 'Profil Saya', href: '/profile', icon: FiUser },
     ];

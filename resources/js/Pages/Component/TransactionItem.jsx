@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { router } from '@inertiajs/react';
 
 export default function TransactionItem({ icon: Icon, title, desc, date, amount, type, color, bg, border, amountClass = null, id, status, payment_method }) {
     const [confirming, setConfirming] = useState(false);
 
+=======
+import React from 'react';
+
+export default function TransactionItem({ icon: Icon, title, desc, date, amount, type, color, bg, border, amountClass = null }) {
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     // Format mata uang Rupiah
     const formatRupiah = (angka) => {
         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka);
@@ -21,6 +27,7 @@ export default function TransactionItem({ icon: Icon, title, desc, date, amount,
         }
     }
 
+<<<<<<< HEAD
     const handleConfirmPayment = async () => {
         if (!confirm('Konfirmasi pembayaran sudah berhasil?')) return;
 
@@ -37,6 +44,8 @@ export default function TransactionItem({ icon: Icon, title, desc, date, amount,
         });
     };
 
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     return (
         <div className="flex items-center justify-between p-3.5 rounded-2xl hover:bg-slate-50 transition-colors border border-slate-100/50 group">
             <div className="flex items-center gap-4">
@@ -50,6 +59,7 @@ export default function TransactionItem({ icon: Icon, title, desc, date, amount,
                             <span className="truncate max-w-[90px] sm:max-w-none">{desc}</span>
                             <span className="text-slate-300 font-bold flex-shrink-0">&bull;</span>
                             <span className="whitespace-nowrap">{date}</span>
+<<<<<<< HEAD
                             {status && (
                                 <>
                                     <span className="text-slate-300 font-bold flex-shrink-0">&bull;</span>
@@ -62,12 +72,15 @@ export default function TransactionItem({ icon: Icon, title, desc, date, amount,
                                     </span>
                                 </>
                             )}
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
                         </div>
                     ) : (
                         <p className="text-xs text-slate-500 font-medium mt-0.5">{desc}</p>
                     )}
                 </div>
             </div>
+<<<<<<< HEAD
             <div className="text-right flex-shrink-0 flex items-center gap-2">
                 <p className={`font-bold ${finalAmountClass}`}>
                     {amount > 0 ? '+' : ''}{formatRupiah(amount).replace(',00', '')}
@@ -81,6 +94,12 @@ export default function TransactionItem({ icon: Icon, title, desc, date, amount,
                         {confirming ? 'Loading...' : 'Confirm'}
                     </button>
                 )}
+=======
+            <div className="text-right flex-shrink-0">
+                <p className={`font-bold ${finalAmountClass}`}>
+                    {amount > 0 ? '+' : ''}{formatRupiah(amount).replace(',00', '')}
+                </p>
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
             </div>
         </div>
     );

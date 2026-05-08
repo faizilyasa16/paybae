@@ -9,7 +9,10 @@ use Inertia\Inertia;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Middleware\CheckProfileCompletion;
 use App\Http\Controllers\Dashboard\RiwayatTransaksi;
+<<<<<<< HEAD
 use App\Http\Controllers\Dashboard\TransferController;
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\InsightController;
 
@@ -17,6 +20,7 @@ Route::get('/', function () {
     return Inertia::render('Home/Home');
 })->name('home');
 
+<<<<<<< HEAD
 // Webhook routes (harus di luar auth middleware)
 Route::post('/webhook/xendit', [App\Http\Controllers\WebhookController::class, 'xendit'])->name('webhook.xendit');
 // Test webhook route for development
@@ -25,6 +29,8 @@ Route::post('/webhook/test/{transactionId}', [App\Http\Controllers\WebhookContro
 Route::get('/api/topup/banks', [App\Http\Controllers\Dashboard\TopUpController::class, 'getBanks'])->name('api.topup.banks');
 Route::post('/api/payment/confirm', [App\Http\Controllers\WebhookController::class, 'confirmPayment'])->name('api.payment.confirm');
 
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'store']);
@@ -55,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
             return Inertia::render('User/Scan');
         })->name('scan.index');
 
+<<<<<<< HEAD
         Route::get('/transfer', [App\Http\Controllers\Dashboard\TransferController::class, 'index'])->name('transfer.index');
         Route::post('/transfer', [App\Http\Controllers\Dashboard\TransferController::class, 'store'])->name('transfer.store');
 
@@ -62,13 +69,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/topup', [App\Http\Controllers\Dashboard\TopUpController::class, 'store'])->name('topup.store');
         Route::get('/payment/qr/{id}', [App\Http\Controllers\Dashboard\TopUpController::class, 'showQR'])->name('payment.qr');
 
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
         Route::resource('profile', ProfileController::class);
         Route::resource('insight', InsightController::class);
     });
 
+<<<<<<< HEAD
     // Success page should be accessible without profile completion check
     Route::get('/topup/success/{id}', [App\Http\Controllers\Dashboard\TopUpController::class, 'success'])->name('topup.success');
     Route::get('/transfer/success/{id}', [App\Http\Controllers\Dashboard\TransferController::class, 'success'])->name('transfer.success');
 
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 });

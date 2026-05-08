@@ -25,7 +25,10 @@ class User extends Authenticatable
         'tanggal_lahir',
         'password',
         'pin',
+<<<<<<< HEAD
         'balance',
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
     ];
 
     /**
@@ -56,9 +59,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserProfile::class);
     }
+<<<<<<< HEAD
 
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
     }
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
 }

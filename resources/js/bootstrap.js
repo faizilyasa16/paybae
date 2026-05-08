@@ -2,6 +2,7 @@ import axios from 'axios';
 window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+<<<<<<< HEAD
 
 // Minimal route helper for React pages
 window.route = window.route || function(name, params = {}) {
@@ -26,3 +27,5 @@ window.route = window.route || function(name, params = {}) {
 
     return url;
 };
+=======
+>>>>>>> 1f443c22033d10ff0b6b1a7903eb8bd0a8b0201d
