@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }) {
             {/* Sidebar untuk Desktop (Sembunyi di Mobile) */}
             <aside className="hidden md:flex md:w-64 md:flex-col shadow-[4px_0_24px_rgba(0,0,0,0.02)] bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 z-20">
                 <div className="p-6 flex items-center gap-2">
-                    <img src="/img/Paybae.png" alt="Paybae" className="w-auto h-15" />
+                    <img src="/img/paybae.png" alt="Paybae" className="w-auto h-15" />
                 </div>
                 
                 <nav className="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
