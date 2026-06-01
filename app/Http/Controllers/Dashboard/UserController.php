@@ -154,7 +154,8 @@ class UserController extends Controller
         ];
 
         try {
-            $response = Http::timeout(15)->post('http://localhost:8004/deep-recommend', $payload);
+            $apiUrl = env('CAPSTONE_API_URL', 'http://localhost:8004') . '/deep-recommend';
+            $response = Http::timeout(15)->post($apiUrl, $payload);
 
             if ($response->successful()) {
                 $data = $response->json();
