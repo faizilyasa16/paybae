@@ -36,7 +36,7 @@ return [
     ],
 
     'capstone' => [
-        'url' => env('CAPSTONE_API_URL', 'http://localhost:8004'),
+        'url' => env('CAPSTONE_API_URL', 'https://precious-rebirth-production-c9f7.up.railway.app'),
     ],
 
 ];
