@@ -190,9 +190,18 @@ class UserController extends Controller
                 'message' => $e->getMessage()
             ]);
             return response()->json([
-                'error' => 'Could not connect to recommendation API',
-                'message' => $e->getMessage()
-            ], 500);
+                'action_name' => 'Error API',
+                'advice' => 'DEBUG ERROR: ' . $e->getMessage() . ' (URL: ' . $apiUrl . ')',
+                'predicted_expense' => 0,
+                'predicted_savings' => [
+                    'per_day' => 0,
+                    'for_next_days' => 0,
+                    'for_7_days' => 0,
+                    'for_30_days' => 0,
+                    'period_days' => 30,
+                ],
+                'action_id' => 0
+            ], 200);
         }
     }
 
