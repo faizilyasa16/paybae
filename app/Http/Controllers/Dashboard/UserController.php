@@ -154,7 +154,10 @@ class UserController extends Controller
         ];
 
         try {
-            $baseUrl = rtrim(config('services.capstone.url', 'http://localhost:8004'), '/');
+            $baseUrl = rtrim(config('services.capstone.url', 'https://precious-rebirth-production-c9f7.up.railway.app'), '/');
+            if (!preg_match('~^(?:f|ht)tps?://~i', $baseUrl)) {
+                $baseUrl = 'https://' . $baseUrl;
+            }
             $apiUrl = $baseUrl . '/deep-recommend';
             $response = Http::timeout(15)->post($apiUrl, $payload);
 
@@ -181,36 +184,18 @@ class UserController extends Controller
             }
             
             return response()->json([
-                'action_name' => 'Error API Status ' . $response->status(),
-                'advice' => 'DEBUG API: ' . $response->body() . ' (URL: ' . $apiUrl . ')',
-                'predicted_expense' => 0,
-                'predicted_savings' => [
-                    'per_day' => 0,
-                    'for_next_days' => 0,
-                    'for_7_days' => 0,
-                    'for_30_days' => 0,
-                    'period_days' => 30,
-                ],
-                'action_id' => 0
-            ], 200);
+                'error' => 'API Error',
+                'details' => $response->body()
+            ], $response->status());
 
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Deep Recommend API Connection Error:', [
                 'message' => $e->getMessage()
             ]);
             return response()->json([
-                'action_name' => 'Error API',
-                'advice' => 'DEBUG ERROR: ' . $e->getMessage() . ' (URL: ' . $apiUrl . ')',
-                'predicted_expense' => 0,
-                'predicted_savings' => [
-                    'per_day' => 0,
-                    'for_next_days' => 0,
-                    'for_7_days' => 0,
-                    'for_30_days' => 0,
-                    'period_days' => 30,
-                ],
-                'action_id' => 0
-            ], 200);
+                'error' => 'Could not connect to recommendation API',
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 
