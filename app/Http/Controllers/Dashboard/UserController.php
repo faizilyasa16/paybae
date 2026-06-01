@@ -181,9 +181,18 @@ class UserController extends Controller
             }
             
             return response()->json([
-                'error' => 'API Error',
-                'details' => $response->body()
-            ], $response->status());
+                'action_name' => 'Error API Status ' . $response->status(),
+                'advice' => 'DEBUG API: ' . $response->body() . ' (URL: ' . $apiUrl . ')',
+                'predicted_expense' => 0,
+                'predicted_savings' => [
+                    'per_day' => 0,
+                    'for_next_days' => 0,
+                    'for_7_days' => 0,
+                    'for_30_days' => 0,
+                    'period_days' => 30,
+                ],
+                'action_id' => 0
+            ], 200);
 
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Deep Recommend API Connection Error:', [
