@@ -154,7 +154,7 @@ class UserController extends Controller
         ];
 
         try {
-            $baseUrl = rtrim(env('CAPSTONE_API_URL', 'http://localhost:8004'), '/');
+            $baseUrl = rtrim(config('services.capstone.url', 'http://localhost:8004'), '/');
             $apiUrl = $baseUrl . '/deep-recommend';
             $response = Http::timeout(15)->post($apiUrl, $payload);
 

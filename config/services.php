@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'capstone' => [
+        'url' => env('CAPSTONE_API_URL', 'http://localhost:8004'),
+    ],
+
 ];
