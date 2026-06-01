@@ -167,12 +167,20 @@ class UserController extends Controller
                 // Tambah predicted_expense untuk tampilan frontend
                 $data['predicted_expense'] = round($avgExpense7d * 7, 0);
 
+                // Hitung potensi hemat berdasarkan pengurangan pengeluaran
+                $factorMap = [0 => 0.0, 1 => 0.0, 2 => 0.20, 3 => 0.10, 4 => 0.05];
+                $actionId = $data['action_id'] ?? 0;
+                $factor = $factorMap[$actionId] ?? 0.0;
+                $reductionPerDay = $avgExpense7d * $factor;
+                
+                $perDay = $reductionPerDay > 0 ? $reductionPerDay : ($data['predicted_savings']['per_day'] ?? 0);
+
                 // Map predicted_savings ke format yang dipakai frontend
                 $data['predicted_savings'] = [
-                    'per_day' => $data['predicted_savings']['per_day'] ?? 0,
-                    'for_next_days' => $data['predicted_savings']['for_30_days'] ?? 0,
-                    'for_7_days' => $data['predicted_savings']['for_7_days'] ?? 0,
-                    'for_30_days' => $data['predicted_savings']['for_30_days'] ?? 0,
+                    'per_day' => round($perDay, 0),
+                    'for_next_days' => round($perDay * 30, 0),
+                    'for_7_days' => round($perDay * 7, 0),
+                    'for_30_days' => round($perDay * 30, 0),
                     'period_days' => 30,
                 ];
 
