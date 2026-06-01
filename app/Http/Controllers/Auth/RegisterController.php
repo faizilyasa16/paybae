@@ -14,6 +14,9 @@ class RegisterController extends Controller
      */
     public function index()
     {
+        if (auth()->check()) {
+            return redirect()->route('dashboard.index');
+        }
         return Inertia::render('Auth/Register'); 
     }
 

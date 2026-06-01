@@ -14,23 +14,23 @@ export default function Profile() {
             icon: FiUser,
             href: '/profile/edit',
             color: 'text-blue-500',
-            bg: 'bg-blue-50',
+            bg: 'bg-blue-50 dark:bg-blue-900/20',
             borderColor: 'border-blue-100'
         },
         {
             title: 'Pengaturan',
             description: 'Atur preferensi aplikasi',
             icon: FiSettings,
-            href: '/settings',
-            color: 'text-slate-500',
-            bg: 'bg-slate-50',
-            borderColor: 'border-slate-100'
+            href: '/profile/settings',
+            color: 'text-slate-500 dark:text-slate-400',
+            bg: 'bg-slate-50 dark:bg-slate-800',
+            borderColor: 'border-slate-100 dark:border-slate-800'
         },
         {
             title: 'Keamanan Akun',
             description: 'Password, PIN, dan biometrik',
             icon: FiShield,
-            href: '/security',
+            href: '/profile/security',
             color: 'text-[#52933e]',
             bg: 'bg-[#f2fbf4]',
             borderColor: 'border-green-100'
@@ -42,14 +42,14 @@ export default function Profile() {
             <Head title="Profil - Paybae" />
 
             {/* Background elements */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-50 rounded-full blur-[100px] -z-10 -translate-y-1/2 translate-x-1/3"></div>
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-green-50 dark:bg-green-900/20 rounded-full blur-[100px] -z-10 -translate-y-1/2 translate-x-1/3"></div>
 
             <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-6 md:pt-10">
                 {/* Header Profile Section */}
                 <div className="flex flex-col items-center mb-8 animate-fade-in-up">
                     <div className="relative mb-4">
                         {user.profile?.profile_picture ? (
-                            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-lg">
                                 <img 
                                     src={`/storage/${user.profile.profile_picture}`} 
                                     alt={user.name} 
@@ -57,42 +57,42 @@ export default function Profile() {
                                 />
                             </div>
                         ) : (
-                            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#61a94a] to-[#80c868] flex items-center justify-center border-4 border-white shadow-lg text-white font-extrabold text-4xl">
+                            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#61a94a] to-[#80c868] flex items-center justify-center border-4 border-white dark:border-slate-800 shadow-lg text-white font-extrabold text-4xl">
                                 {user.name ? user.name.charAt(0).toUpperCase() : 'A'}
                             </div>
                         )}
                     </div>
-                    <h1 className="text-2xl font-extrabold text-slate-800">{user.name}</h1>
-                    <p className="text-slate-500 font-medium">{user.no_hp || user.email || 'ahmad@paybae.id'}</p>
-                    <div className="mt-3 px-3 py-1 bg-green-50 text-[#52933e] rounded-full text-xs font-bold border border-green-100">
+                    <h1 className="text-2xl font-extrabold text-slate-800 dark:text-white">{user.name}</h1>
+                    <p className="text-slate-500 dark:text-slate-400 font-medium">{user.no_hp || user.email || 'ahmad@paybae.id'}</p>
+                    <div className="mt-3 px-3 py-1 bg-green-50 dark:bg-green-900/20 text-[#52933e] rounded-full text-xs font-bold border border-green-100">
                         Member Premium
                     </div>
                 </div>
 
                 {/* Vertical Navigation */}
-                <div className="bg-white rounded-[24px] shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 overflow-hidden animate-fade-in-up" style={{ animationDelay: '100ms' }}>
+                <div className="bg-white dark:bg-slate-900 rounded-[24px] shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 dark:border-slate-800/60 overflow-hidden animate-fade-in-up" style={{ animationDelay: '100ms' }}>
                     <div className="p-2 flex flex-col gap-1">
                         {menuItems.map((item, index) => (
                             <Link 
                                 key={index} 
                                 href={item.href}
-                                className="flex items-center gap-4 p-4 rounded-[16px] hover:bg-slate-50 transition-colors group"
+                                className="flex items-center gap-4 p-4 rounded-[16px] hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group"
                             >
                                 <div className={`w-12 h-12 rounded-2xl ${item.bg} border ${item.borderColor} flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform`}>
                                     <item.icon className={`w-6 h-6 ${item.color}`} />
                                 </div>
                                 <div className="flex-1">
-                                    <h3 className="font-bold text-slate-800 text-base">{item.title}</h3>
-                                    <p className="text-sm text-slate-500">{item.description}</p>
+                                    <h3 className="font-bold text-slate-800 dark:text-white text-base">{item.title}</h3>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400">{item.description}</p>
                                 </div>
-                                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-white group-hover:shadow-sm transition-all">
+                                <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 group-hover:bg-white dark:group-hover:bg-slate-900 group-hover:shadow-sm dark:group-hover:shadow-none transition-all">
                                     <FiChevronRight className="w-5 h-5" />
                                 </div>
                             </Link>
                         ))}
                     </div>
 
-                    <div className="border-t border-slate-100 mx-4 my-2"></div>
+                    <div className="border-t border-slate-100 dark:border-slate-800 mx-4 my-2"></div>
 
                     <div className="p-2">
                         <Link 

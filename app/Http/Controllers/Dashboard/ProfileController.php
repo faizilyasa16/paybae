@@ -41,19 +41,64 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the profile.
      */
-    public function edit(string $id)
+    public function edit()
     {
-        //
+        return Inertia::render('User/ProfileEdit');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Show the settings page.
      */
-    public function update(Request $request, string $id)
+    public function settings()
     {
-        //
+        return Inertia::render('User/ProfileSettings');
+    }
+
+    /**
+     * Show the security page.
+     */
+    public function security()
+    {
+        return Inertia::render('User/ProfileSecurity');
+    }
+
+    /**
+     * Update profile (name, email, phone, avatar)
+     */
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
+            'no_hp' => 'nullable|string|max:20',
+            'avatar' => 'nullable|image|max:2048',
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            
+            if ($user->profile) {
+                $user->profile->update(['profile_picture' => $path, 'phone' => $request->no_hp]);
+            } else {
+                $user->profile()->create(['profile_picture' => $path, 'phone' => $request->no_hp]);
+            }
+        } else {
+            if ($user->profile) {
+                $user->profile->update(['phone' => $request->no_hp]);
+            } else {
+                $user->profile()->create(['phone' => $request->no_hp]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
 
     /**

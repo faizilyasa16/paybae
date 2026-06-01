@@ -7,21 +7,21 @@ export default function QRModal({ isOpen, onClose }) {
 
     return (
         <div className="absolute inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm transition-opacity">
-            <div className="bg-white rounded-[24px] p-8 max-w-sm w-full flex flex-col items-center relative shadow-2xl animate-fade-in-up">
+            <div className="bg-white dark:bg-slate-900 rounded-[24px] p-8 max-w-sm w-full flex flex-col items-center relative shadow-2xl animate-fade-in-up">
                 {/* Tombol Close */}
                 <button 
                     onClick={onClose}
-                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-slate-100 text-slate-500 hover:bg-slate-200 hover:text-slate-800 rounded-full transition-colors"
+                    className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:bg-slate-200 hover:text-slate-800 dark:hover:text-white rounded-full transition-colors"
                 >
                     <FiX className="w-5 h-5" />
                 </button>
                 
-                <h3 className="font-extrabold text-2xl text-slate-800 mb-1">QRIS Paybae</h3>
-                <p className="text-sm text-slate-500 font-medium mb-6 text-center">
+                <h3 className="font-extrabold text-2xl text-slate-800 dark:text-white mb-1">QRIS Paybae</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium mb-6 text-center">
                     Tunjukkan kode ini ke pemindai untuk menerima pembayaran.
                 </p>
                 
-                <div className="p-4 bg-white border-2 border-slate-100 rounded-2xl shadow-sm mb-6">
+                <div className="p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl shadow-sm dark:shadow-none mb-6">
                     {/* Dummy QR Code Image */}
                     <img 
                         src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=Paybae-Dummy-QR-Code" 
