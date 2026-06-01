@@ -41,9 +41,9 @@ export default function Home() {
                 <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-gradient-to-tr from-green-300/20 to-lime-300/20 dark:from-green-950/20 dark:to-lime-950/20 rounded-full blur-3xl -z-10" />
                 <div className="absolute top-1/2 left-0 w-[30%] h-[50%] bg-gradient-to-tr from-lime-300/10 to-green-300/10 dark:from-lime-950/10 dark:to-green-950/10 rounded-full blur-3xl -z-10" />
 
-                <div className="max-w-7xl mx-auto px-6 lg:px-20 w-full flex flex-col lg:flex-row items-center justify-between gap-12">
+                <div className="max-w-7xl mx-auto px-6 lg:px-20 w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
                     {/* Left Column: Text Content */}
-                    <div className="flex-1 flex flex-col items-start text-left">
+                    <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6 text-slate-800 dark:text-white leading-tight">
                             Atur Keuanganmu, <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-lime-500 dark:from-green-400 dark:to-lime-400">
@@ -56,7 +56,7 @@ export default function Home() {
                         </p>
 
                         {/* CTA Buttons */}
-                        <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-10">
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:w-auto mb-10">
                             <Link 
                                 href="/register"
                                 className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-green-600 to-lime-500 text-white font-semibold text-lg shadow-lg shadow-green-500/25 hover:scale-[1.02] hover:shadow-green-500/40 transition-all duration-300 flex items-center justify-center gap-2"
@@ -72,7 +72,7 @@ export default function Home() {
                         </div>
                         
                         {/* Stats / Social Proof */}
-                        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 w-full flex flex-row items-center gap-6 lg:gap-8 flex-wrap">
+                        <div className="pt-8 border-t border-slate-200 dark:border-slate-800 w-full flex flex-row items-center justify-center lg:justify-start gap-6 lg:gap-8 flex-wrap">
                             <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                                 <FaShieldAlt className="text-green-600 dark:text-green-400" />
                                 <span className="text-sm font-medium">Aman & Terpercaya</span>
