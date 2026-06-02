@@ -178,6 +178,14 @@ export default function Home() {
                             </div>
                             <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-0">Integrasi AI Pintar</h3>
                         </div>
+
+                        {/* Feature 9 */}
+                        <div className="bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 p-8 rounded-2xl hover:shadow-xl hover:shadow-green-500/5 transition-all duration-300 hover:-translate-y-1 group">
+                            <div className="w-12 h-12 mx-auto rounded-xl bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <FaDollarSign className="w-6 h-6" />
+                            </div>
+                            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-0">Simulasi Prediksi Pengeluaran</h3>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -578,7 +586,7 @@ function AiWorkflowSection() {
                 </svg>
             ),
             title: "Analisis AI Cerdas",
-            desc: "Machine learning memproses pola keuanganmu untuk menemukan insight yang tidak terlihat.",
+            desc: "Deep Learning memproses pola keuanganmu untuk menemukan insight yang tidak terlihat.",
             detail: "Algoritma prediktif dengan akurasi tinggi",
         },
         {
