@@ -440,7 +440,7 @@ export default function ScanQR() {
                                             setAmount(e.target.value);
                                             setErrors((p) => ({ ...p, amount: undefined }));
                                         }}
-                                        className="flex-1 px-4 py-3 bg-transparent outline-none text-slate-800 dark:text-white font-semibold text-base"
+                                        className="flex-1 px-4 py-3 bg-transparent outline-none text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500/70 font-semibold text-base"
                                     />
                                 </div>
                                 {errors.amount && <p className="text-red-500 text-xs mt-1.5">{errors.amount}</p>}
@@ -519,7 +519,7 @@ export default function ScanQR() {
                                         setPin(e.target.value.replace(/\D/g, "").slice(0, 6));
                                         setErrors((p) => ({ ...p, pin: undefined }));
                                     }}
-                                    className="flex-1 px-4 py-3 bg-transparent outline-none text-slate-800 dark:text-white font-bold text-xl tracking-[0.5em] placeholder-slate-300"
+                                    className="flex-1 px-4 py-3 bg-transparent outline-none text-slate-800 dark:text-white font-bold text-xl tracking-[0.5em] placeholder-slate-400 dark:placeholder-slate-500/70"
                                 />
                             </div>
                             {errors.pin && <p className="text-red-500 text-xs mt-1.5">{errors.pin}</p>}

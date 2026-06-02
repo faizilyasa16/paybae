@@ -483,7 +483,7 @@ export default function TopUp() {
                                                 amount: undefined,
                                             }));
                                         }}
-                                        className="flex-1 px-4 py-3 bg-transparent outline-none text-slate-800 dark:text-white font-semibold text-base"
+                                        className="flex-1 px-4 py-3 bg-transparent outline-none text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500/70 font-semibold text-base"
                                     />
                                 </div>
                                 {errors.amount && (

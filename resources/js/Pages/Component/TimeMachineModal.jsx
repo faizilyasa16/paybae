@@ -97,7 +97,7 @@ export default function TimeMachineModal({ isOpen, onClose, balance = 0, totalIn
                                     setResult(null);
                                 }}
                                 placeholder="Misal: 150000"
-                                className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-[#61a94a] focus:ring-1 focus:ring-[#61a94a] transition-all"
+                                className="w-full bg-slate-50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500/70 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-[#61a94a] focus:ring-1 focus:ring-[#61a94a] transition-all"
                             />
                         </div>
                         <button 
