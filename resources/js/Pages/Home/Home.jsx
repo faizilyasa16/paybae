@@ -21,6 +21,7 @@ import {
     FaInstagram,
     FaFacebook,
     FaTwitter,
+    FaDollarSign,
     FaYoutube,
     FaQrcode,
     FaBrain
@@ -176,7 +177,7 @@ export default function Home() {
                             <div className="w-12 h-12 mx-auto rounded-xl bg-green-50 dark:bg-green-950/50 text-green-600 dark:text-green-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                 <FaBrain className="w-6 h-6" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-0">Integrasi AI Pintar</h3>
+                            <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-0">AI Pembaca Struk</h3>
                         </div>
 
                         {/* Feature 9 */}
