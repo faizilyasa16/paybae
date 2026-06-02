@@ -95,7 +95,7 @@ export default function Dashboard() {
         if (aiLoading) return "Memuat rekomendasi AI...";
         if (!rawAdvice) return "Tidak ada rekomendasi.";
         
-        let cleaned = rawAdvice.replace(/^\[Deep Learning\] Pola pengeluaran Anda:\s*[a-zA-Z]+\s*\([^)]*\)\.\s*/i, '');
+        let cleaned = rawAdvice.replace(/^\[(?:Deep Learning|XGBoost|Random Forest)\] Pola pengeluaran Anda:\s*[a-zA-Z\s]+\s*\([^)]*\)\.\s*/i, '');
         
         return cleaned;
     };
@@ -106,6 +106,26 @@ export default function Dashboard() {
         const factorMap = { 0: 0.0, 1: 0.0, 2: 0.20, 3: 0.10, 4: 0.05 };
         const factor = factorMap[aiData.action_id] ?? 0.0;
         return avgExpenseDaily * factor;
+    };
+
+    const getStatusName = () => {
+        if (aiLoading) return "Menganalisis...";
+        if (!aiData || !aiData.advice) return "Tidak Diketahui";
+        
+        const match = aiData.advice.match(/Pola pengeluaran Anda:\s*([a-zA-Z\s]+)\s*\(/i);
+        if (match && match[1]) {
+            return match[1].trim();
+        }
+        
+        // Fallback
+        const fallbackMap = {
+            0: "Sangat Hemat",
+            1: "Hemat",
+            2: "Normal",
+            3: "Boros",
+            4: "Sangat Boros"
+        };
+        return fallbackMap[aiData.action_id] || "Tidak Diketahui";
     };
 
     return (
@@ -327,7 +347,7 @@ export default function Dashboard() {
                                 <div className="flex-1 min-w-0">
                                     <p className="text-[10px] font-black text-orange-500 uppercase tracking-wider mb-1">STATUS PENGELUARAN KEDEPAN</p>
                                     <p className="text-slate-800 dark:text-white font-bold text-base sm:text-lg leading-tight uppercase">
-                                        {aiLoading ? "Menganalisis..." : (aiData?.action_name || "Tidak Diketahui")}
+                                        {getStatusName()}
                                     </p>
                                     <p className="text-xs text-slate-400 mt-1">Berdasarkan model AI</p>
                                 </div>
