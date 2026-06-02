@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, Head, useForm } from '@inertiajs/react';
-import {FcGoogle} from 'react-icons/fc';
 
 import FormInput from "../Component/FormInput";
 import PrimaryButton from "../Component/PrimaryButton";
@@ -100,22 +99,7 @@ export default function Register() {
                         </div>
                     </form>
 
-                    {/* Divider 'Atau' */}
-                    <div className="flex items-center my-5">
-                        <div className="flex-grow border-t border-slate-200"></div>
-                        <span className="flex-shrink-0 mx-4 text-slate-400 text-sm font-medium">atau daftar dengan</span>
-                        <div className="flex-grow border-t border-slate-200"></div>
-                    </div>
-
-                    {/* Google Login Button */}
-                    <a href="#" className="block w-full">
-                        <button className="flex items-center justify-center gap-3 w-full bg-white text-slate-700 font-semibold py-3.5 rounded-xl border border-slate-200 shadow-sm hover:bg-slate-50 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                            <FcGoogle className="text-2xl" />
-                            <span>Google</span>
-                        </button>
-                    </a>
-
-                    {/* Footer Register Link */}
+                    {/* Footer Login Link */}
                     <p className="mt-6 text-center text-sm text-slate-500 border-t border-slate-100 pt-6">
                         Sudah punya akun? <Link href="/login" className="text-green-600 font-semibold hover:underline">Login Sekarang</Link>
                     </p>

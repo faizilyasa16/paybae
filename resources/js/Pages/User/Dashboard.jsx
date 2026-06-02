@@ -371,15 +371,14 @@ export default function Dashboard() {
                                     <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-1">
                                         Jika mengikuti rekomendasi, potensi hemat kamu yang akan datang adalah :
                                     </p>
-                                    <div className="flex items-start gap-2 sm:gap-3 mt-1.5 flex-wrap">
-                                        <div className="flex flex-col">
-                                            <span className="text-base sm:text-xl font-bold text-blue-500 dark:text-blue-400 leading-none">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_7_days || 0))}</span>
-                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-1">7 Hari</span>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                                        <div className="flex flex-col bg-blue-50/50 dark:bg-blue-950/20 rounded-xl p-3 border border-blue-100/50 dark:border-blue-900/30">
+                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">7 Hari</span>
+                                            <span className="text-lg sm:text-xl font-bold text-blue-500 dark:text-blue-400 leading-none truncate">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_7_days || 0))}</span>
                                         </div>
-                                        <span className="text-slate-300 dark:text-slate-600 font-light text-2xl leading-none -mt-0.5">|</span>
-                                        <div className="flex flex-col">
-                                            <span className="text-base sm:text-xl font-bold text-indigo-500 dark:text-indigo-400 leading-none">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_30_days || 0))}</span>
-                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-1">30 Hari</span>
+                                        <div className="flex flex-col bg-indigo-50/50 dark:bg-indigo-950/20 rounded-xl p-3 border border-indigo-100/50 dark:border-indigo-900/30">
+                                            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-1">30 Hari</span>
+                                            <span className="text-lg sm:text-xl font-bold text-indigo-500 dark:text-indigo-400 leading-none truncate">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_30_days || 0))}</span>
                                         </div>
                                     </div>
                                 </div>
