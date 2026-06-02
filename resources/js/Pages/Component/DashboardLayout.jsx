@@ -96,13 +96,13 @@ export default function DashboardLayout({ children }) {
             {/* Konten Utama (Scrollable) */}
             <main className="flex-1 relative overflow-y-auto w-full">
                 {/* Area konten, padding bottom lebih besar di mobile agar tidak tertutup bottom navbar */}
-                <div className="pb-24 md:pb-8 relative min-h-full">
+                <div className="pb-28 md:pb-8 relative min-h-full">
                     {children}
                 </div>
             </main>
 
             {/* Bottom Navbar untuk Mobile (Sembunyi di Desktop) */}
-            <div className="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200/60 dark:border-slate-800 flex justify-around items-end p-2 pb-3 md:hidden z-50 shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+            <div className="fixed bottom-4 left-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/60 dark:border-slate-800 rounded-3xl flex justify-around items-end p-2 md:hidden z-50 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
                 {bottomNavItems.map((item) => {
                     const isActive = url.startsWith(item.href) || (item.name === 'Smart Hub' && url.startsWith('/scan-struk'));
                     
@@ -150,7 +150,7 @@ export default function DashboardLayout({ children }) {
 
             {/* Smart Hub Modal / Bottom Sheet */}
             {isSmartHubOpen && (
-                <div className="fixed inset-0 z-[100] flex items-end md:items-center justify-center">
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                     {/* Backdrop */}
                     <div 
                         className="absolute inset-0 bg-slate-900/40 dark:bg-slate-950/60 backdrop-blur-sm transition-opacity"
@@ -158,9 +158,7 @@ export default function DashboardLayout({ children }) {
                     ></div>
                     
                     {/* Modal Content */}
-                    <div className="relative bg-white dark:bg-slate-900 w-full md:w-[400px] rounded-t-3xl md:rounded-3xl p-6 shadow-2xl animate-fade-in-up transform transition-all border border-slate-100 dark:border-slate-800">
-                        {/* Pull indicator for mobile */}
-                        <div className="w-12 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mb-6 md:hidden"></div>
+                    <div className="relative bg-white dark:bg-slate-900 w-full max-w-sm rounded-3xl p-6 shadow-2xl animate-fade-in-up transform transition-all border border-slate-100 dark:border-slate-800">
                         
                         <div className="flex items-center justify-between mb-6">
                             <div>
@@ -169,7 +167,7 @@ export default function DashboardLayout({ children }) {
                             </div>
                             <button 
                                 onClick={() => setIsSmartHubOpen(false)}
-                                className="p-2 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors hidden md:block"
+                                className="p-2 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                             >
                                 <FiX className="w-5 h-5" />
                             </button>

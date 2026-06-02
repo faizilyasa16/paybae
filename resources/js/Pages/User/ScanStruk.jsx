@@ -240,7 +240,7 @@ export default function ScanStruk() {
 
     if (step === 1) {
         return (
-            <div className="relative w-full h-screen bg-black overflow-hidden flex flex-col font-sans">
+            <div className="relative w-full h-[100dvh] bg-black overflow-hidden flex flex-col font-sans">
                 <Head title="Scan Struk - Paybae" />
                 <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleGalleryChange} />
 
@@ -297,7 +297,7 @@ export default function ScanStruk() {
     // Preview View (Step 2)
     if (step === 2) {
         return (
-            <div className="relative w-full min-h-screen bg-slate-50 dark:bg-[#121212] overflow-hidden flex flex-col font-sans">
+            <div className="relative w-full h-[100dvh] bg-slate-50 dark:bg-[#121212] overflow-hidden flex flex-col font-sans">
                 <Head title="Preview Struk - Paybae" />
                 
                 {/* Header */}
@@ -353,7 +353,7 @@ export default function ScanStruk() {
     // Result View (Step 3)
     if (step === 3 && result) {
         return (
-            <div className="relative w-full min-h-screen bg-slate-50 dark:bg-[#121212] overflow-y-auto font-sans pb-24">
+            <div className="relative w-full h-[100dvh] bg-slate-50 dark:bg-[#121212] flex flex-col overflow-hidden font-sans pb-4">
                 <Head title="Hasil Analisis Struk - Paybae" />
                 
                 {/* Header */}
@@ -365,7 +365,7 @@ export default function ScanStruk() {
                     <Link href="/dashboard" className="text-sm font-semibold text-[#52933e] hover:underline">Selesai</Link>
                 </div>
 
-                <div className="p-6 max-w-md mx-auto w-full relative z-10 animate-fade-in-up">
+                <div className="p-6 max-w-md mx-auto w-full relative z-10 flex-1 overflow-y-auto animate-fade-in-up">
                     <div className="bg-white dark:bg-slate-900 rounded-[20px] p-6 shadow-[0_2px_15px_-3px_rgba(6,81,237,0.1)] border border-slate-100 dark:border-slate-800 mb-6">
                         <div className="flex items-center gap-3 mb-4">
                             <div className="w-10 h-10 bg-green-100 dark:bg-green-900/30 text-[#52933e] rounded-full flex items-center justify-center">

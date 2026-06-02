@@ -301,7 +301,7 @@ export default function ScanQR() {
     // Kamera View (Step 1)
     if (step === 1) {
         return (
-            <div className="relative w-full h-screen bg-black overflow-hidden flex flex-col font-sans">
+            <div className="relative w-full h-[100dvh] bg-black overflow-hidden flex flex-col font-sans">
                 <Head title="Scan QR - Paybae" />
                 <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleGalleryChange} />
 
@@ -371,14 +371,15 @@ export default function ScanQR() {
 
     // Formulir Pembayaran & Konfirmasi (Step 2, 3, 4)
     return (
-        <div className="relative min-h-screen bg-slate-50 dark:bg-[#121212] overflow-hidden">
+        <div className="relative h-[100dvh] bg-slate-50 dark:bg-[#121212] overflow-hidden flex flex-col font-sans">
             <Head title="Pembayaran QRIS - Paybae" />
             
             {/* Background Blobs */}
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-green-50 dark:bg-green-900/20 rounded-full blur-[80px] -z-10 -translate-y-1/2 translate-x-1/3" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-green-50 dark:bg-green-900/20/60 rounded-full blur-[70px] -z-10 translate-y-1/3 -translate-x-1/3" />
 
-            <div className="max-w-2xl mx-auto px-4 sm:px-6 pt-6 md:pt-10 pb-10">
+            <div className="flex-1 overflow-y-auto px-4 sm:px-6 pt-6 md:pt-10 pb-10">
+                <div className="max-w-2xl mx-auto w-full h-full flex flex-col">
                 {step < 4 && (
                     <div className="mb-6 animate-fade-in-up flex items-center gap-3">
                         <button
@@ -581,6 +582,7 @@ export default function ScanQR() {
                         secondaryHref="/dashboard"
                     />
                 )}
+                </div>
             </div>
         </div>
     );

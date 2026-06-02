@@ -65,10 +65,8 @@ export default function TimeMachineModal({ isOpen, onClose, balance = 0, totalIn
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/50 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-300">
-            <div className="w-full sm:max-w-md bg-white dark:bg-slate-900 rounded-t-[32px] sm:rounded-[32px] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl relative flex flex-col animate-fade-in-up max-h-[92vh] sm:max-h-[90vh]">
-                {/* Pull indicator for mobile */}
-                <div className="w-12 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mx-auto mt-3 mb-0 sm:hidden"></div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/50 dark:bg-slate-950/80 backdrop-blur-md transition-colors duration-300">
+            <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-[32px] overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl relative flex flex-col animate-fade-in-up max-h-[90vh]">
                 <div className="flex justify-between items-center p-5 sm:p-6 border-b border-slate-100 dark:border-slate-800/50">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
