@@ -179,6 +179,7 @@ export default function Home() {
                             </div>
                             <h3 className="text-xl font-bold text-slate-800 dark:text-white mb-0">AI Pembaca Struk & Simulasi Prediksi Pengeluaran</h3>
                         </div>
+                    </div>
                 </div>
             </section>
 
