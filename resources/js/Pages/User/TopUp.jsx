@@ -255,7 +255,7 @@ export default function TopUp() {
                             </div>
 
                             {/* VA Detail */}
-                            <div className="bg-[#f8fffe] border border-green-100 rounded-[16px] p-4 mb-4 space-y-3">
+                            <div className="bg-[#f8fffe] dark:bg-slate-800/50 border border-green-100 dark:border-slate-700 rounded-[16px] p-4 mb-4 space-y-3">
                                 <div className="flex justify-between items-center">
                                     <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                                         Bank
@@ -331,9 +331,9 @@ export default function TopUp() {
                             </div>
 
                             {/* Info Box */}
-                            <div className="flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 rounded-xl p-3.5 mb-5">
+                            <div className="flex items-start gap-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/40 rounded-xl p-3.5 mb-5">
                                 <FiInfo className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
-                                <p className="text-xs text-blue-700 font-medium leading-relaxed">
+                                <p className="text-xs text-blue-700 dark:text-blue-300 font-medium leading-relaxed">
                                     Transfer{" "}
                                     <span className="font-bold">
                                         sesuai nominal persis
@@ -532,7 +532,7 @@ export default function TopUp() {
                             </div>
 
                             {/* Estimasi Biaya */}
-                            <div className="flex items-center justify-between bg-[#f2fbf4] border border-green-100 rounded-xl px-4 py-3">
+                            <div className="flex items-center justify-between bg-[#f2fbf4] dark:bg-green-950/30 border border-green-100 dark:border-green-900/40 rounded-xl px-4 py-3">
                                 <span className="text-sm text-slate-600 dark:text-slate-300 font-medium">
                                     Biaya Admin
                                 </span>

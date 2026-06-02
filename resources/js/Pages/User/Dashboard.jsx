@@ -280,20 +280,20 @@ export default function Dashboard() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                        <div className="bg-[#f2fbf4] border border-green-100 rounded-[16px] p-3.5 sm:p-5 transition-transform hover:scale-[1.02] overflow-hidden">
+                        <div className="bg-[#f2fbf4] dark:bg-green-950/30 border border-green-100 dark:border-green-900/40 rounded-[16px] p-3.5 sm:p-5 transition-transform hover:scale-[1.02] overflow-hidden">
                             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mb-1">
                                 Pemasukan
                             </p>
-                            <p className="text-base sm:text-xl md:text-2xl font-extrabold text-[#52933e] whitespace-nowrap tracking-tight truncate">
+                            <p className="text-sm sm:text-xl md:text-2xl font-extrabold text-[#52933e] whitespace-nowrap tracking-tight truncate">
                                 +{formatRupiah(total_pemasukan)}
                             </p>
                             <p className="text-[10px] text-slate-400 mt-1 font-medium">Sebulan terakhir</p>
                         </div>
-                        <div className="bg-[#fff8f6] border border-orange-50 rounded-[16px] p-3.5 sm:p-5 transition-transform hover:scale-[1.02] overflow-hidden">
+                        <div className="bg-[#fff8f6] dark:bg-red-950/30 border border-orange-50 dark:border-red-900/40 rounded-[16px] p-3.5 sm:p-5 transition-transform hover:scale-[1.02] overflow-hidden">
                             <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium mb-1">
                                 Pengeluaran
                             </p>
-                            <p className="text-base sm:text-xl md:text-2xl font-extrabold text-[#d85c49] whitespace-nowrap tracking-tight truncate">
+                            <p className="text-sm sm:text-xl md:text-2xl font-extrabold text-[#d85c49] whitespace-nowrap tracking-tight truncate">
                                 -{formatRupiah(total_pengeluaran)}
                             </p>
                             <p className="text-[10px] text-slate-400 mt-1 font-medium">Sebulan terakhir</p>
@@ -371,14 +371,14 @@ export default function Dashboard() {
                                     <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm leading-relaxed mb-1">
                                         Jika mengikuti rekomendasi, potensi hemat kamu yang akan datang adalah :
                                     </p>
-                                    <div className="flex items-start gap-3 mt-1.5">
+                                    <div className="flex items-start gap-2 sm:gap-3 mt-1.5 flex-wrap">
                                         <div className="flex flex-col">
-                                            <span className="text-xl font-bold text-blue-500 dark:text-blue-400 leading-none">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_7_days || 0))}</span>
+                                            <span className="text-base sm:text-xl font-bold text-blue-500 dark:text-blue-400 leading-none">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_7_days || 0))}</span>
                                             <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-1">7 Hari</span>
                                         </div>
                                         <span className="text-slate-300 dark:text-slate-600 font-light text-2xl leading-none -mt-0.5">|</span>
                                         <div className="flex flex-col">
-                                            <span className="text-xl font-bold text-indigo-500 dark:text-indigo-400 leading-none">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_30_days || 0))}</span>
+                                            <span className="text-base sm:text-xl font-bold text-indigo-500 dark:text-indigo-400 leading-none">+{formatRupiah(aiLoading ? 0 : (aiData?.predicted_savings?.for_30_days || 0))}</span>
                                             <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-1">30 Hari</span>
                                         </div>
                                     </div>
@@ -529,7 +529,7 @@ export default function Dashboard() {
                     {/* Analisis Keuangan */}
                     <div className="bg-white dark:bg-slate-900 rounded-[20px] p-5 sm:p-6 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)] border border-slate-100/60 dark:border-slate-800/60 flex flex-col relative overflow-hidden order-1 lg:order-2">
                         {/* Decorative background for the card */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#f2fbf4] rounded-full blur-3xl -z-10 opacity-70"></div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-[#f2fbf4] dark:bg-green-950/20 rounded-full blur-3xl -z-10 opacity-70"></div>
 
                         <div className="text-center mb-6 mt-1">
                             <h3 className="font-bold text-slate-800 dark:text-white text-lg mb-1">
@@ -597,7 +597,7 @@ export default function Dashboard() {
                             {/* Dynamic Legend */}
                             <div className="space-y-2 mb-5">
                                 {chartCategories.map((cat, i) => (
-                                    <div key={i} className="flex items-center gap-3 bg-[#fcfdfc] dark:bg-slate-800/50 p-3 rounded-xl border border-slate-50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/80 transition-colors cursor-default"
+                                    <div key={i} className="flex items-center gap-3 bg-[#fcfdfc] dark:bg-slate-800/50 p-2.5 sm:p-3 rounded-xl border border-slate-50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/80 transition-colors cursor-default"
                                         onMouseEnter={() => setDonutHover(cat)}
                                         onMouseLeave={() => setDonutHover(null)}
                                     >
