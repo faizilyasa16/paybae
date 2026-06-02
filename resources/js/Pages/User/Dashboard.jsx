@@ -97,9 +97,6 @@ export default function Dashboard() {
         
         let cleaned = rawAdvice.replace(/^\[Deep Learning\] Pola pengeluaran Anda:\s*[a-zA-Z]+\s*\([^)]*\)\.\s*/i, '');
         
-        if (actionName) {
-            return `${actionName}. ${cleaned}`;
-        }
         return cleaned;
     };
 
@@ -328,9 +325,9 @@ export default function Dashboard() {
                                     </svg>
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <p className="text-[10px] font-black text-orange-500 uppercase tracking-wider mb-1">PREDIKSI PENGELUARAN 7 HARI KEDEPAN</p>
-                                    <p className="text-slate-800 dark:text-white font-bold text-base leading-tight">
-                                        {formatRupiah(aiLoading ? 0 : (aiData?.predicted_expense || 0))}
+                                    <p className="text-[10px] font-black text-orange-500 uppercase tracking-wider mb-1">STATUS PENGELUARAN KEDEPAN</p>
+                                    <p className="text-slate-800 dark:text-white font-bold text-base sm:text-lg leading-tight uppercase">
+                                        {aiLoading ? "Menganalisis..." : (aiData?.action_name || "Tidak Diketahui")}
                                     </p>
                                     <p className="text-xs text-slate-400 mt-1">Berdasarkan model AI</p>
                                 </div>
