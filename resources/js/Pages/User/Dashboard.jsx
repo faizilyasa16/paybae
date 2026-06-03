@@ -349,7 +349,7 @@ export default function Dashboard() {
                                     <p className="text-slate-800 dark:text-white font-bold text-base sm:text-lg leading-tight uppercase">
                                         {getStatusName()}
                                     </p>
-                                    <p className="text-xs text-slate-400 mt-1">Berdasarkan model AI</p>
+                                    <p className="text-xs text-slate-400 mt-1">Prediksi Pengeluaran 7 hari : {formatRupiah(aiLoading ? 0 : (aiData?.predicted_expense || 0))}</p>
                                 </div>
                             </div>
 
