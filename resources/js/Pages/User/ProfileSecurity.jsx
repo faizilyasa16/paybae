@@ -3,7 +3,6 @@ import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import DashboardLayout from '../Component/DashboardLayout';
 import { FiArrowLeft, FiLock, FiCheckCircle } from 'react-icons/fi';
 import PrimaryButton from '../Component/PrimaryButton';
-import Swal from 'sweetalert2';
 
 export default function ProfileSecurity() {
     const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
@@ -24,12 +23,7 @@ export default function ProfileSecurity() {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: 'PIN transaksi berhasil diperbarui.',
-                    confirmButtonColor: '#52933e'
-                });
+                alert('PIN transaksi berhasil diperbarui.');
             },
         });
     };
