@@ -1,41 +1,37 @@
 import React, { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import DashboardLayout from '../Component/DashboardLayout';
 import { FiArrowLeft, FiLock, FiCheckCircle } from 'react-icons/fi';
 import PrimaryButton from '../Component/PrimaryButton';
+import Swal from 'sweetalert2';
 
 export default function ProfileSecurity() {
-    const [form, setForm] = useState({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         old_pin: '',
         new_pin: '',
         confirm_pin: ''
     });
 
-    const [errors, setErrors] = useState({});
-
     const handleChange = (e) => {
         const val = e.target.value.replace(/\D/g, '').slice(0, 6); // Max 6 digit, angka saja
-        setForm({ ...form, [e.target.name]: val });
-    };
-
-    const validate = () => {
-        let e = {};
-        if (form.old_pin.length !== 6) e.old_pin = 'PIN lama harus 6 angka.';
-        if (form.new_pin.length !== 6) e.new_pin = 'PIN baru harus 6 angka.';
-        if (form.new_pin !== form.confirm_pin) e.confirm_pin = 'Konfirmasi PIN tidak cocok.';
-        return e;
+        setData(e.target.name, val);
+        clearErrors(e.target.name);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const errs = validate();
-        if (Object.keys(errs).length > 0) {
-            setErrors(errs);
-            return;
-        }
-        setErrors({});
-        alert('Simulasi: PIN berhasil diubah!');
-        setForm({ old_pin: '', new_pin: '', confirm_pin: '' });
+        post(route('profile.security.pin.update'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                reset();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'PIN transaksi berhasil diperbarui.',
+                    confirmButtonColor: '#52933e'
+                });
+            },
+        });
     };
 
     return (
@@ -75,7 +71,7 @@ export default function ProfileSecurity() {
                             <input
                                 type="password"
                                 name="old_pin"
-                                value={form.old_pin}
+                                value={data.old_pin}
                                 onChange={handleChange}
                                 placeholder="••••••"
                                 className={`w-full bg-slate-50 dark:bg-slate-800 border rounded-xl px-4 py-3 outline-none transition-all text-xl tracking-[0.5em] font-bold ${errors.old_pin ? 'border-red-400 focus:ring-1 focus:ring-red-400' : 'border-slate-200 dark:border-slate-700 focus:border-[#52933e] focus:ring-1 focus:ring-[#52933e] text-slate-800 dark:text-white'}`}
@@ -88,7 +84,7 @@ export default function ProfileSecurity() {
                             <input
                                 type="password"
                                 name="new_pin"
-                                value={form.new_pin}
+                                value={data.new_pin}
                                 onChange={handleChange}
                                 placeholder="••••••"
                                 className={`w-full bg-slate-50 dark:bg-slate-800 border rounded-xl px-4 py-3 outline-none transition-all text-xl tracking-[0.5em] font-bold ${errors.new_pin ? 'border-red-400 focus:ring-1 focus:ring-red-400' : 'border-slate-200 dark:border-slate-700 focus:border-[#52933e] focus:ring-1 focus:ring-[#52933e] text-slate-800 dark:text-white'}`}
@@ -101,7 +97,7 @@ export default function ProfileSecurity() {
                             <input
                                 type="password"
                                 name="confirm_pin"
-                                value={form.confirm_pin}
+                                value={data.confirm_pin}
                                 onChange={handleChange}
                                 placeholder="••••••"
                                 className={`w-full bg-slate-50 dark:bg-slate-800 border rounded-xl px-4 py-3 outline-none transition-all text-xl tracking-[0.5em] font-bold ${errors.confirm_pin ? 'border-red-400 focus:ring-1 focus:ring-red-400' : 'border-slate-200 dark:border-slate-700 focus:border-[#52933e] focus:ring-1 focus:ring-[#52933e] text-slate-800 dark:text-white'}`}
@@ -112,8 +108,17 @@ export default function ProfileSecurity() {
                         <div className="pt-4">
                             <PrimaryButton type="submit" className="w-full bg-[#52933e] hover:bg-[#437a32]">
                                 <span className="flex items-center justify-center gap-2 font-bold text-[15px]">
-                                    <FiCheckCircle className="w-5 h-5" />
-                                    Simpan PIN Baru
+                                    {processing ? (
+                                        <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                    ) : (
+                                        <>
+                                            <FiCheckCircle className="w-5 h-5" />
+                                            Simpan PIN Baru
+                                        </>
+                                    )}
                                 </span>
                             </PrimaryButton>
                         </div>

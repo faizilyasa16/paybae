@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -107,5 +108,36 @@ class ProfileController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * Update user's PIN
+     */
+    public function updatePin(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'old_pin' => ['required', 'string', 'size:6'],
+            'new_pin' => ['required', 'string', 'size:6', 'different:old_pin'],
+            'confirm_pin' => ['required', 'string', 'same:new_pin'],
+        ], [
+            'old_pin.required' => 'PIN lama harus diisi.',
+            'old_pin.size' => 'PIN lama harus 6 digit.',
+            'new_pin.required' => 'PIN baru harus diisi.',
+            'new_pin.size' => 'PIN baru harus 6 digit.',
+            'new_pin.different' => 'PIN baru harus berbeda dengan PIN lama.',
+            'confirm_pin.required' => 'Konfirmasi PIN harus diisi.',
+            'confirm_pin.same' => 'Konfirmasi PIN tidak cocok.',
+        ]);
+
+        if (!Hash::check($request->old_pin, $user->pin)) {
+            return back()->withErrors(['old_pin' => 'PIN lama yang Anda masukkan salah.']);
+        }
+
+        $user->pin = Hash::make($request->new_pin);
+        $user->save();
+
+        return redirect()->back()->with('success', 'PIN berhasil diubah!');
     }
 }

@@ -104,6 +104,7 @@ Route::middleware(["auth"])->group(function () {
         Route::post("/profile/edit", [ProfileController::class, "updateProfile"])->name("profile.update");
         Route::get("/profile/settings", [ProfileController::class, "settings"])->name("profile.settings");
         Route::get("/profile/security", [ProfileController::class, "security"])->name("profile.security");
+        Route::post("/profile/security/pin", [ProfileController::class, "updatePin"])->name("profile.security.pin.update");
         Route::get("/terms", function () {
             return Inertia::render("User/Terms");
         })->name("terms");
