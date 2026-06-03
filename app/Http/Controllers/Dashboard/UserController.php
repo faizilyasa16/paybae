@@ -91,35 +91,27 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $oneMonthAgo = Carbon::now()->subMonth();
-
         $wallet = \App\Models\Wallet::firstOrCreate(
             ['user_id' => $user->id],
             ['balance' => 0]
         );
-
         $totalPemasukan = \App\Models\TopUp::where('user_id', $user->id)
             ->where('created_at', '>=', $oneMonthAgo)
             ->where('status', 'PAID')
             ->sum('amount');
-
         $totalPengeluaran = \App\Models\Transfer::where('user_id', $user->id)
             ->where('created_at', '>=', $oneMonthAgo)
             ->selectRaw('SUM(amount + fee) as total')
             ->value('total') ?? 0;
-
-        // Collect daily expenses for the last 30 days
         $transfers = \App\Models\Transfer::where('user_id', $user->id)
             ->where('created_at', '>=', $oneMonthAgo)
             ->orderBy('created_at')
             ->get();
-            
         $dailyExpenses = [];
-        // initialize 30 days of 0
         for ($i = 29; $i >= 0; $i--) {
             $date = Carbon::now()->subDays($i)->format('Y-m-d');
             $dailyExpenses[$date] = 0;
         }
-
         foreach ($transfers as $transfer) {
             $date = $transfer->created_at->format('Y-m-d');
             if (isset($dailyExpenses[$date])) {
@@ -128,21 +120,41 @@ class UserController extends Controller
         }
 
         $transactionHistory = array_values($dailyExpenses);
-        
+        $balance = (float) $wallet->balance;
+        if ((float) $totalPemasukan > 0) {
+            $monthlyIncome = (float) $totalPemasukan;
+        } elseif ((float) $totalPengeluaran > 0) {
+            $monthlyIncome = (float) $totalPengeluaran; //fallback: minimal bisa belanja segini
+        } else {
+            $monthlyIncome = 3000000; //default Rp 3 juta jika belum ada data sama sekali
+        }
+        $savingsRate = min(max(($monthlyIncome - (float) $totalPengeluaran) / $monthlyIncome, -1.0), 1.0);
+        //caritahu kapan transaksi non-zero pertama kali terjadi dalam 30 hari terakhir (cold-start detection)
+        $firstNonZeroIndex = -1;
+        foreach ($transactionHistory as $index => $amount) {
+            if ($amount > 0) {
+                $firstNonZeroIndex = $index;
+                break;
+            }
+        }
+
+        $activeDays = 30; //default jika histori penuh
+        if ($firstNonZeroIndex !== -1) {
+            $activeDays = 30 - $firstNonZeroIndex;
+        }
         $avgExpense7d = 0;
         if (count($transactionHistory) >= 7) {
             $last7days = array_slice($transactionHistory, -7);
-            $avgExpense7d = array_sum($last7days) / 7;
+            $rawAvgExpense7d = array_sum($last7days) / 7;
+            //jika hari aktif transaksi < 7 hari, lakukan smoothing (meredam lonjakan transaksi satu kali di awal)
+            if ($activeDays < 7) {
+                //baseline pengeluaran harian wajar (asumsi 30% dari pendapatan bulanan dibagi 30)
+                $baselineAvgExpense = ($monthlyIncome * 0.3) / 30;
+                $avgExpense7d = ($rawAvgExpense7d * $activeDays / 7) + ($baselineAvgExpense * (7 - $activeDays) / 7);
+            } else {
+                $avgExpense7d = $rawAvgExpense7d;
+            }
         }
-
-        $balance = (float) $wallet->balance;
-        // Estimasi monthly income: ambil yang terbesar antara pemasukan, pengeluaran, atau saldo
-        // Karena jika user bisa belanja segitu, income minimal segitu
-        $monthlyIncome = max((float) $totalPemasukan, (float) $totalPengeluaran, $balance);
-        if ($monthlyIncome <= 0) {
-            $monthlyIncome = 3000000; // default Rp 3 juta jika belum ada data
-        }
-        $savingsRate = min(max(($monthlyIncome - (float) $totalPengeluaran) / $monthlyIncome, -1.0), 1.0);
 
         $payload = [
             'monthly_income' => $monthlyIncome,
@@ -152,7 +164,6 @@ class UserController extends Controller
             'transaction_history' => $transactionHistory,
             'avg_expense_7d' => $avgExpense7d,
         ];
-
         try {
             $baseUrl = rtrim(config('services.capstone.url', 'https://precious-rebirth-production-c9f7.up.railway.app'), '/');
             if (!preg_match('~^(?:f|ht)tps?://~i', $baseUrl)) {
@@ -160,22 +171,17 @@ class UserController extends Controller
             }
             $apiUrl = $baseUrl . '/deep-recommend';
             $response = Http::timeout(15)->post($apiUrl, $payload);
-
             if ($response->successful()) {
                 $data = $response->json();
-
-                // Tambah predicted_expense untuk tampilan frontend
+                //tambah predicted_expense untuk tampilan frontend
                 $data['predicted_expense'] = round($avgExpense7d * 7, 0);
-
-                // Hitung potensi hemat berdasarkan pengurangan pengeluaran
+                //hitung potensi hemat berdasarkan pengurangan pengeluaran
                 $factorMap = [0 => 0.0, 1 => 0.0, 2 => 0.20, 3 => 0.10, 4 => 0.05];
                 $actionId = $data['action_id'] ?? 0;
                 $factor = $factorMap[$actionId] ?? 0.0;
                 $reductionPerDay = $avgExpense7d * $factor;
-                
                 $perDay = $reductionPerDay > 0 ? $reductionPerDay : ($data['predicted_savings']['per_day'] ?? 0);
-
-                // Map predicted_savings ke format yang dipakai frontend
+                //tampilkan predicted_savings ke format yang dipakai frontend
                 $data['predicted_savings'] = [
                     'per_day' => round($perDay, 0),
                     'for_next_days' => round($perDay * 30, 0),
@@ -183,14 +189,11 @@ class UserController extends Controller
                     'for_30_days' => round($perDay * 30, 0),
                     'period_days' => 30,
                 ];
-
-                // Map input_source ke used_prediction_from untuk kompatibilitas frontend
+                //Map input_source ke used_prediction_from untuk kompatibilitas frontend
                 $data['used_prediction_from'] = $data['input_source'] ?? 'deep_learning';
                 $data['source'] = 'Deep Learning (LSTM)';
-
                 return response()->json($data);
             }
-            
             return response()->json([
                 'error' => 'API Error',
                 'details' => $response->body()
