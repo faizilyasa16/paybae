@@ -97,7 +97,11 @@ export default function Dashboard() {
         
         let cleaned = rawAdvice.replace(/^\[(?:Deep Learning|XGBoost|Random Forest)\] Pola pengeluaran Anda:\s*[a-zA-Z\s]+\s*\([^)]*\)\.\s*/i, '');
         
-        return cleaned;
+        // Hapus teks "Potensi tabungan 30 hari: Rp..." dan "Akurasi Rekomendasi: ...%" karena sudah ada UI khususnya
+        cleaned = cleaned.replace(/Potensi tabungan 30 hari:\s*Rp[0-9,.]+\.\s*/i, '');
+        cleaned = cleaned.replace(/Akurasi Rekomendasi:\s*[0-9.]+%?\./i, '');
+        
+        return cleaned.trim();
     };
 
     const getSavingsPerDay = () => {
