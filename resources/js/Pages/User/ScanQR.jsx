@@ -371,7 +371,7 @@ export default function ScanQR() {
 
     // Formulir Pembayaran & Konfirmasi (Step 2, 3, 4)
     return (
-        <div className="relative h-[100dvh] bg-slate-50 dark:bg-[#121212] overflow-hidden flex flex-col font-sans">
+        <div className="relative min-h-[100dvh] bg-slate-50 dark:bg-[#121212] overflow-y-auto flex flex-col font-sans pb-10">
             <Head title="Pembayaran QRIS - Paybae" />
             
             {/* Background Blobs */}

@@ -297,7 +297,7 @@ export default function ScanStruk() {
     // Preview View (Step 2)
     if (step === 2) {
         return (
-            <div className="relative w-full h-[100dvh] bg-slate-50 dark:bg-[#121212] overflow-hidden flex flex-col font-sans">
+            <div className="relative w-full min-h-[100dvh] bg-slate-50 dark:bg-[#121212] overflow-y-auto flex flex-col font-sans pb-10">
                 <Head title="Preview Struk - Paybae" />
                 
                 {/* Header */}
@@ -353,7 +353,7 @@ export default function ScanStruk() {
     // Result View (Step 3)
     if (step === 3 && result) {
         return (
-            <div className="relative w-full h-[100dvh] bg-slate-50 dark:bg-[#121212] flex flex-col overflow-hidden font-sans pb-4">
+            <div className="relative w-full min-h-[100dvh] bg-slate-50 dark:bg-[#121212] flex flex-col overflow-y-auto font-sans pb-10">
                 <Head title="Hasil Analisis Struk - Paybae" />
                 
                 {/* Header */}
