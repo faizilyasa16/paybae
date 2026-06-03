@@ -19,7 +19,7 @@ export default function ProfileSecurity() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('profile.security.pin.update'), {
+        post('/profile/security/pin', {
             preserveScroll: true,
             onSuccess: () => {
                 reset();
