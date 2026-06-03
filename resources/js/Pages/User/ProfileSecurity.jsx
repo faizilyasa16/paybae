@@ -99,8 +99,8 @@ export default function ProfileSecurity() {
                             {errors.confirm_pin && <p className="text-red-500 text-xs mt-1.5">{errors.confirm_pin}</p>}
                         </div>
 
-                        <div className="pt-4">
-                            <PrimaryButton type="submit" className="w-full bg-[#52933e] hover:bg-[#437a32]">
+                        <div className="pt-4 relative z-10">
+                            <PrimaryButton type="submit" disabled={processing} className="w-full bg-[#52933e] hover:bg-[#437a32]">
                                 <span className="flex items-center justify-center gap-2 font-bold text-[15px]">
                                     {processing ? (
                                         <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
